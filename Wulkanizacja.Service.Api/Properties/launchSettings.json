@@ -1,10 +1,33 @@
 {
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:5884",
+      "sslPort": 0
+    }
+  },
   "profiles": {
-    "Wulkanizacja.Service.Api": {
-      "commandName": "Project"
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "local"
+      }
     },
-    "Container (Dockerfile)": {
-      "commandName": "Docker"
+    "At.Radio.Devices.Index.Service.Api": {
+      "commandName": "Project",
+      "dotnetRunMessages": "true",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://*:5884"
+      },
+      "applicationUrl": "http://localhost:5884"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "publishAllPorts": true
     }
   }
 }
