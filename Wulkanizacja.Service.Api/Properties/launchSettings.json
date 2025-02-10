@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Wulkanizacja.Service.Api": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

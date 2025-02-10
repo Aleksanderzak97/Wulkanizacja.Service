@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wulkanizacja.Service.Api", "Wulkanizacja.Service.Api.csproj", "{4715F165-805D-44CC-A5DC-F90C2DC7523C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4715F165-805D-44CC-A5DC-F90C2DC7523C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4715F165-805D-44CC-A5DC-F90C2DC7523C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4715F165-805D-44CC-A5DC-F90C2DC7523C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4715F165-805D-44CC-A5DC-F90C2DC7523C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FA25E067-7F8E-4223-ADD6-9C7602108C5E}
+	EndGlobalSection
+EndGlobal
