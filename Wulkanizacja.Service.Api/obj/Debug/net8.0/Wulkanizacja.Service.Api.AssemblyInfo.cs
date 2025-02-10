@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Wulkanizacja.Service.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bc4f45ce644414fa81217198997e366b35ba5c07")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ef99465dbc7ff83ec33fec5ea3dc2dbe6fae7166")]
 [assembly: System.Reflection.AssemblyProductAttribute("Wulkanizacja.Service.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Wulkanizacja.Service.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
