@@ -15,12 +15,12 @@
         "ASPNETCORE_ENVIRONMENT": "local"
       }
     },
-    "At.Radio.Devices.Index.Service.Api": {
+    "Wulkanizacja.Service.Api": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_URLS": "http://*:5884"
+        "ASPNETCORE_URLS": "http://localhost:5884"
       },
       "applicationUrl": "http://localhost:5884"
     },
