@@ -42,7 +42,7 @@ namespace Wulkanizacja.Service.Infrastructure.Filters
                                                 ["CreateDate"] = new OpenApiString("2025-01-01T00:00:00Z"),
                                                 ["EditDate"] = new OpenApiString("2025-01-01T00:00:00Z"),
                                                 ["Comments"] = new OpenApiString("Przykładowe komentarze"),
-                                                ["QuantityInStock"] = new OpenApiString("")
+                                                ["QuantityInStock"] = new OpenApiInteger((int)10)
                                             }
                                         }
                                     }
