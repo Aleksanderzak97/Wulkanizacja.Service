@@ -7,9 +7,9 @@ namespace Wulkanizacja.Service.Application.Queries
 {
     public class GetTiresBySizeAndType : IQuery<IEnumerable<TireDto>>
     {
-        [FromHeader(Name = "Size")]
+        [FromQuery(Name = "Size")]
         public string Size { get; set; }
-        [FromHeader(Name = "TireType")]
+        [FromQuery(Name = "TireType")]
         public TireType TireType { get; set; }
     }
 }

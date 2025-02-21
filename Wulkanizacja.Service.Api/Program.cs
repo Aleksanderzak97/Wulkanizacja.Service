@@ -51,11 +51,10 @@ builder.Services.AddSwaggerGen(c =>
         Title = "Wulkanizacja Service API",
         Description = "API for Wulkanizacja Service"
     });
-    c.OperationFilter<RemoveRequestBodyForGetFilter>();
-
     c.DocumentFilter<TireDtoExamplesDocumentFilter>();
     c.ExampleFilters();
     c.OperationFilter<SwaggerHeaderFilter>();
+
 
 });
 
@@ -83,14 +82,28 @@ app.UseDispatcherEndpoints(endpoints => endpoints
             httpContext.Response.StatusCode = (int)HttpStatusCode.Created;
         })
 
-    .Get<GetTiresBySizeAndType, IEnumerable<TireDto>>("tires/search",
-        endpoint: endpoint => endpoint.WithDescription("Pobiera opony na podstawie rozmiaru i typu"),
-        beforeDispatch: (cmd, httpContext) =>
+.Get("tires/search",
+    context: async httpContext =>
+    {
+        var size = httpContext.Request.Query["Size"].ToString();
+        var tireType = Enum.Parse<TireType>(httpContext.Request.Query["TireType"].ToString());
+
+        var query = new GetTiresBySizeAndType
         {
-            cmd.Size = httpContext.Request.Headers["Size"].ToString();
-            cmd.TireType = Enum.Parse<TireType>(httpContext.Request.Headers["TireType"].ToString());
-            return Task.CompletedTask;
-        })
+            Size = size,
+            TireType = tireType
+        };
+
+        var dispatcher = httpContext.RequestServices.GetRequiredService<IQueryDispatcher>();
+        var result = await dispatcher.QueryAsync(query);
+
+        // Zwracasz wynik
+        await httpContext.Response.WriteAsJsonAsync(result);
+    },
+    endpoint: endpoint => endpoint.WithDescription("Pobiera opony na podstawie rozmiaru i typu")
+)
+
+
 
 //.Get<GetTire, TireDto>("tires/{id}",
 //    endpoint: endpoint => endpoint.WithDescription("Pobiera oponę na podstawie ID"))
