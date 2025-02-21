@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Wulkanizacja.Service.Core.Aggregates;
+using Wulkanizacja.Service.Core.Enums;
 using Wulkanizacja.Service.Core.Repositories;
 using Wulkanizacja.Service.Infrastructure.Mapping;
 using Wulkanizacja.Service.Infrastructure.Postgres.Context;
@@ -37,6 +38,16 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Repositories
             }
         }
 
+        public async Task<IEnumerable<TireAggregate>> GetBySizeAndTypeAsync(string size, TireType tiretype, CancellationToken cancellationToken)
+        {
+            await WaitForFreeTransaction(cancellationToken);
+            return await ordersDbContext.Tires
+                .Where(d => d.Size == size)
+                .Where(d => d.TireType.TireTypeId == (short)tiretype)
+                .Select(d => d.ToAggregate())
+                .ToListAsync(cancellationToken);
+        }
+
         private async Task SaveContextChangesAsync(CancellationToken cancellationToken)
         {
             try
@@ -56,6 +67,7 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Repositories
                 await Task.Delay(100, cancellationToken);
             }
         }
+
     }
 
 }

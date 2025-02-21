@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Wulkanizacja.Service.Application.Dto;
+using Wulkanizacja.Service.Core.Aggregates;
 using Wulkanizacja.Service.Core.Models;
 
 namespace Wulkanizacja.Service.Application.Mapping
@@ -43,5 +44,26 @@ namespace Wulkanizacja.Service.Application.Mapping
              Comments = model.Comments,
              QuantityInStock = model.QuantityInStock
          };
+
+        public static TireDto ToDto(this TireAggregate tireAggregate)
+   => new()
+   {
+       TireType = tireAggregate.Type,
+       Brand = tireAggregate.Brand,
+       Model = tireAggregate.Model,
+       Size = tireAggregate.Size,
+       SpeedIndex = tireAggregate.SpeedIndex,
+       LoadIndex = tireAggregate.LoadIndex,
+       ManufactureDate = tireAggregate.ManufactureDate,
+       CreateDate = tireAggregate.CreateDate,
+       EditDate = tireAggregate.EditDate,
+       Comments = tireAggregate.Comments,
+       QuantityInStock = tireAggregate.QuantityInStock
+   };
+
+
+        public static IEnumerable<TireDto> ToDto(this IEnumerable<TireAggregate> tiresAggregate)
+     => tiresAggregate.Select(tiresAggregate => tiresAggregate.ToDto()).ToList();
+
     }
 }

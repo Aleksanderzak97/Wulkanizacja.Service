@@ -13,6 +13,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Filters;
 using Wulkanizacja.Service.Application;
 using Wulkanizacja.Service.Application.Commands;
+using Wulkanizacja.Service.Application.Dto;
+using Wulkanizacja.Service.Application.Queries;
+using Wulkanizacja.Service.Core.Enums;
 using Wulkanizacja.Service.Infrastructure;
 using Wulkanizacja.Service.Infrastructure.Filters;
 using Wulkanizacja.Service.Infrastructure.Postgres.Options;
@@ -48,8 +51,12 @@ builder.Services.AddSwaggerGen(c =>
         Title = "Wulkanizacja Service API",
         Description = "API for Wulkanizacja Service"
     });
+    c.OperationFilter<RemoveRequestBodyForGetFilter>();
+
     c.DocumentFilter<TireDtoExamplesDocumentFilter>();
     c.ExampleFilters();
+    c.OperationFilter<SwaggerHeaderFilter>();
+
 });
 
 builder.Services.AddSwaggerExamplesFromAssemblyOf<TireDtoExamples>();
@@ -76,17 +83,26 @@ app.UseDispatcherEndpoints(endpoints => endpoints
             httpContext.Response.StatusCode = (int)HttpStatusCode.Created;
         })
 
-    //.Get<GetTire, TireDto>("tires/{id}",
-    //    endpoint: endpoint => endpoint.WithDescription("Pobiera oponę na podstawie ID"))
+    .Get<GetTiresBySizeAndType, IEnumerable<TireDto>>("tires/search",
+        endpoint: endpoint => endpoint.WithDescription("Pobiera opony na podstawie rozmiaru i typu"),
+        beforeDispatch: (cmd, httpContext) =>
+        {
+            cmd.Size = httpContext.Request.Headers["Size"].ToString();
+            cmd.TireType = Enum.Parse<TireType>(httpContext.Request.Headers["TireType"].ToString());
+            return Task.CompletedTask;
+        })
 
-    //.Get<GetAllTires, IEnumerable<TireDto>>("tires",
-    //    endpoint: endpoint => endpoint.WithDescription("Pobiera wszystkie opony"))
+//.Get<GetTire, TireDto>("tires/{id}",
+//    endpoint: endpoint => endpoint.WithDescription("Pobiera oponę na podstawie ID"))
 
-    //.Put<UpdateTire>("tires/update",
-    //    endpoint: endpoint => endpoint.WithDescription("Aktualizuje oponę"))
+//.Get<GetAllTires, IEnumerable<TireDto>>("tires",
+//    endpoint: endpoint => endpoint.WithDescription("Pobiera wszystkie opony"))
 
-    //.Delete<DeleteTire>("tires/{id}/delete",
-    //    endpoint: endpoint => endpoint.WithDescription("Usuwa oponę o podanym ID"))
+//.Put<UpdateTire>("tires/update",
+//    endpoint: endpoint => endpoint.WithDescription("Aktualizuje oponę"))
+
+//.Delete<DeleteTire>("tires/{id}/delete",
+//    endpoint: endpoint => endpoint.WithDescription("Usuwa oponę o podanym ID"))
 );
 
 app.Run();
