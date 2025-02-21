@@ -8,6 +8,6 @@ using Wulkanizacja.Service.Core.Enums;
 
 namespace Wulkanizacja.Service.Core.Events
 {
-    public record AddTireEvent(AggregateId Id, string Brand, string Size, TireType Type) : IDomainEvent;
+    public record AddTireEvent(TireAggregate Tire) : IDomainEvent;
 
 }

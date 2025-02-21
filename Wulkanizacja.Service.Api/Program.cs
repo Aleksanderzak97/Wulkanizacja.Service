@@ -8,12 +8,22 @@ using Convey.WebApi;
 using Convey.WebApi.CQRS;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Filters;
 using Wulkanizacja.Service.Application;
 using Wulkanizacja.Service.Application.Commands;
 using Wulkanizacja.Service.Infrastructure;
+using Wulkanizacja.Service.Infrastructure.Filters;
+using Wulkanizacja.Service.Infrastructure.Postgres.Options;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+builder.Services.Configure<PostgresOptions>(builder.Configuration.GetSection("postgres"));
+
+
 
 builder.Services.AddControllers();
 
@@ -30,17 +40,28 @@ builder.Services
 
 builder.Services.AddEndpointsApiExplorer();
 
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Wulkanizacja Service API",
+        Description = "API for Wulkanizacja Service"
+    });
+    c.DocumentFilter<TireDtoExamplesDocumentFilter>();
+    c.ExampleFilters();
+});
+
+builder.Services.AddSwaggerExamplesFromAssemblyOf<TireDtoExamples>();
 
 
 var app = builder.Build();
-//app.MapControllers();
 
 
 // Middleware i konfiguracja aplikacji
 
 app.UseSwaggerDocs();
 app.UseApplication();
-app.UsePublicContracts<ContractAttribute>();
 app.UseDispatcherEndpoints(endpoints => endpoints
     .Post<PostTire>("tires",
         endpoint: endpoint => endpoint

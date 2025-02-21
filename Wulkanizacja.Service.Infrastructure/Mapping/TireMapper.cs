@@ -10,13 +10,24 @@ namespace Wulkanizacja.Service.Infrastructure.Mapping
 {
     public static class TireMapper
     {
-        public static TireRecord ToRecord(this TireAggregate mainOrder)
-    => new()
-    {
-        TireId = mainOrder.Id,
-        Brand = mainOrder.Brand,
-        Size = mainOrder.Size
-    };
+        public static TireRecord ToRecord(this TireAggregate tireAggregate)
+       => new()
+       {
+           TireId = tireAggregate.Id,
+           Brand = tireAggregate.Brand,
+           Model = tireAggregate.Model,
+           Size = tireAggregate.Size,
+           SpeedIndex = tireAggregate.SpeedIndex,
+           LoadIndex = tireAggregate.LoadIndex,
+           TireTypeId = (short)tireAggregate.Type,
+           ManufactureDate = tireAggregate.ManufactureDate,
+           CreationDate = tireAggregate.CreateDate,
+           EditDate = tireAggregate.EditDate,
+           Comments = tireAggregate.Comments,
+           QuantityInStock = tireAggregate.QuantityInStock
+       };
+
+
 
     }
 }

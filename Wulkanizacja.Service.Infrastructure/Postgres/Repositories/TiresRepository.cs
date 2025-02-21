@@ -14,7 +14,7 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Repositories
 {
     public class TiresRepository(TiresDbContext ordersDbContext) : ITiresRepository
     {
-        public async Task<TireAggregate> CreateTire(TireAggregate mainOrder, CancellationToken cancellationToken)
+        public async Task<TireAggregate> CreateTire(TireAggregate tireAggregate, CancellationToken cancellationToken)
         {
             await WaitForFreeTransaction(cancellationToken);
 
@@ -22,12 +22,12 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Repositories
 
             try
             {
-                await ordersDbContext.Tires.AddAsync(mainOrder.ToRecord(), cancellationToken);
+                await ordersDbContext.Tires.AddAsync(tireAggregate.ToRecord(), cancellationToken);
                 await SaveContextChangesAsync(cancellationToken);
 
                 await transaction.CommitAsync(cancellationToken);
 
-                return mainOrder;
+                return tireAggregate;
             }
             catch (Exception ex)
             {

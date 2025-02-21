@@ -72,7 +72,6 @@ namespace Wulkanizacja.Service.Application.Commands.Handlers
                     pipelineBuilder.AddTimeout(timeoutAttribute.Timeout);
                 }
 
-            // Add more attribute types here if needed
             return pipelineBuilder.Build();
         }
 

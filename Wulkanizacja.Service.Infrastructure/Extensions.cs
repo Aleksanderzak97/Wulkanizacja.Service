@@ -17,8 +17,10 @@ using Wulkanizacja.Service.Infrastructure.Postgres.Options;
 using Wulkanizacja.Service.Infrastructure.Postgres.Repositories;
 using Wulkanizacja.Service.Infrastructure.Postgres.Services;
 using Microsoft.AspNetCore.Builder;
-using Wulkanizacja.Service.Infrastructure.Filters;
 using Convey.WebApi.Swagger;
+using Convey.CQRS.Queries;
+using Wulkanizacja.Service.Infrastructure.Filters;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace Wulkanizacja.Service.Infrastructure
 {
@@ -71,17 +73,6 @@ public static IConveyBuilder AddSwagger(this IConveyBuilder builder)
     builder.Services.AddSingleton(resolver =>
         resolver.GetRequiredService<IOptions<SwaggerOptions>>().Value);
 
-    builder.Services.AddSwaggerGen(c =>
-    {
-        c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
-        {
-            Version = "v1",
-            Title = "Wulkanizacja Service API",
-            Description = "API for Wulkanizacja Service"
-        });
-
-        // Nie dodajemy własnych filtrów – domyślna konfiguracja AddSwaggerDocs() wystarczy
-    });
 
             return builder.AddWebApiSwaggerDocs();
 

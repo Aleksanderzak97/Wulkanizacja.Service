@@ -10,6 +10,7 @@ using Wulkanizacja.Service.Application.Commands.Attributes;
 using Wulkanizacja.Service.Core.Aggregates;
 using Convey.CQRS.Events;
 using Wulkanizacja.Service.Core.Repositories;
+using Wulkanizacja.Service.Application.Mapping;
 
 namespace Wulkanizacja.Service.Application.Commands.Handlers
 {
@@ -19,10 +20,8 @@ namespace Wulkanizacja.Service.Application.Commands.Handlers
 
         public override async Task HandleCommandAsync(PostTire command, CancellationToken cancellationToken = default)
         {
-            //todo obsluga
-            //var createTire = await repository.CreateTire(command, cancellationToken);
-
-            var tire = new TireAggregate(command.Brand, command.Size, command.Type);
+            var tire = new TireAggregate(command.Tire.ToModel());
+            tire.AddTire();
 
             await publisher.PublishDomainEventsAsync(tire.Events.ToArray());
             await Task.CompletedTask;
