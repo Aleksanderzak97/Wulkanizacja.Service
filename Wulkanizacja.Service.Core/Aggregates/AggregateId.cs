@@ -1,28 +1,29 @@
 ﻿using SequentialGuid;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Wulkanizacja.Service.Core.Exceptions;
 
 namespace Wulkanizacja.Service.Core.Aggregates
 {
-    public class AggregateId : IEquatable<AggregateId>, IEqualityComparer<AggregateId>
+    public sealed class AggregateId : IEquatable<AggregateId>
     {
-        #region Properties
-
+        /// <summary>
+        /// Wewnętrzna wartość GUID.
+        /// </summary>
         public Guid Value { get; }
 
-        #endregion
-
-        #region Constructors
-
-        public AggregateId() : this(SequentialGuidGenerator.Instance.NewGuid(DateTime.Now))
+        /// <summary>
+        /// Tworzy nowy identyfikator agregatu z wygenerowanym sekwencyjnym GUID-em.
+        /// Używany jest czas UTC dla spójności.
+        /// </summary>
+        public AggregateId() : this(SequentialGuidGenerator.Instance.NewGuid(DateTime.UtcNow))
         {
         }
 
+        /// <summary>
+        /// Tworzy nowy identyfikator agregatu z podaną wartością GUID.
+        /// </summary>
+        /// <param name="value">Wartość GUID.</param>
+        /// <exception cref="InvalidAggregateIdException">Wyrzucany, jeśli podany GUID jest pusty.</exception>
         public AggregateId(Guid value)
         {
             if (value == Guid.Empty)
@@ -31,61 +32,31 @@ namespace Wulkanizacja.Service.Core.Aggregates
             Value = value;
         }
 
-        #endregion
+        /// <summary>
+        /// Niejawna konwersja z <see cref="AggregateId"/> do <see cref="Guid"/>.
+        /// </summary>
+        public static implicit operator Guid(AggregateId id) => id.Value;
 
-        #region Methods
-
-        public static implicit operator Guid(AggregateId id)
-            => id.Value;
-
-        public static implicit operator AggregateId(Guid id)
-        {
-            return new AggregateId(id);
-        }
+        /// <summary>
+        /// Niejawna konwersja z <see cref="Guid"/> do <see cref="AggregateId"/>.
+        /// </summary>
+        public static implicit operator AggregateId(Guid id) => new AggregateId(id);
 
         public bool Equals(AggregateId other)
         {
-            if (ReferenceEquals(null, other))
+            if (other is null)
                 return false;
-
             return ReferenceEquals(this, other) || Value.Equals(other.Value);
         }
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj))
-                return false;
-            if (ReferenceEquals(this, obj))
-                return true;
-
-            return obj.GetType() == GetType() && Equals((AggregateId)obj);
+            return obj is AggregateId other && Equals(other);
         }
 
-        public override int GetHashCode()
-        {
-            return Value.GetHashCode();
-        }
+        public override int GetHashCode() => Value.GetHashCode();
 
-        public override string ToString()
-        {
-            return Value.ToString();
-        }
+        public override string ToString() => Value.ToString();
 
-        public bool Equals([AllowNull] AggregateId x, [AllowNull] AggregateId y)
-        {
-            if (ReferenceEquals(null, y))
-                return false;
-            if (ReferenceEquals(null, x))
-                return false;
-
-            return ReferenceEquals(x, y) || Value.Equals(y.Value);
-        }
-
-        public int GetHashCode(AggregateId obj)
-        {
-            return obj?.Value.GetHashCode() ?? 0;
-        }
-
-        #endregion
     }
 }

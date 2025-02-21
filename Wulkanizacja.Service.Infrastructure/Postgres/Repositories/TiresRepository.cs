@@ -13,17 +13,17 @@ using Wulkanizacja.Service.Infrastructure.Postgres.Context;
 
 namespace Wulkanizacja.Service.Infrastructure.Postgres.Repositories
 {
-    public class TiresRepository(TiresDbContext ordersDbContext) : ITiresRepository
+    public class TiresRepository(TiresDbContext tiresDbContext) : ITiresRepository
     {
         public async Task<TireAggregate> CreateTire(TireAggregate tireAggregate, CancellationToken cancellationToken)
         {
             await WaitForFreeTransaction(cancellationToken);
 
-            await using var transaction = await ordersDbContext.Database.BeginTransactionAsync(cancellationToken);
+            await using var transaction = await tiresDbContext.Database.BeginTransactionAsync(cancellationToken);
 
             try
             {
-                await ordersDbContext.Tires.AddAsync(tireAggregate.ToRecord(), cancellationToken);
+                await tiresDbContext.Tires.AddAsync(tireAggregate.ToRecord(), cancellationToken);
                 await SaveContextChangesAsync(cancellationToken);
 
                 await transaction.CommitAsync(cancellationToken);
@@ -41,7 +41,7 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Repositories
         public async Task<IEnumerable<TireAggregate>> GetBySizeAndTypeAsync(string size, TireType tiretype, CancellationToken cancellationToken)
         {
             await WaitForFreeTransaction(cancellationToken);
-            return await ordersDbContext.Tires
+            return await tiresDbContext.Tires
                 .Where(d => d.Size == size)
                 .Where(d => d.TireType.TireTypeId == (short)tiretype)
                 .Select(d => d.ToAggregate())
@@ -52,7 +52,7 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Repositories
         {
             try
             {
-                await ordersDbContext.SaveChangesAsync(cancellationToken);
+                await tiresDbContext.SaveChangesAsync(cancellationToken);
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -62,7 +62,7 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Repositories
 
         private async Task WaitForFreeTransaction(CancellationToken cancellationToken)
         {
-            while (ordersDbContext.Database.CurrentTransaction != null)
+            while (tiresDbContext.Database.CurrentTransaction != null)
             {
                 await Task.Delay(100, cancellationToken);
             }

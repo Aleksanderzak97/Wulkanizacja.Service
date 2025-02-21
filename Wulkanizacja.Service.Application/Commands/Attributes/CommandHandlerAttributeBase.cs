@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Wulkanizacja.Service.Application.Commands.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
-    public class HandlerAttributeBase : Attribute
+    public class CommandHandlerAttributeBase : Attribute
     {
     }
 }

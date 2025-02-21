@@ -48,6 +48,7 @@ namespace Wulkanizacja.Service.Application.Mapping
         public static TireDto ToDto(this TireAggregate tireAggregate)
    => new()
    {
+       Id = tireAggregate.Id.ToString(),
        TireType = tireAggregate.Type,
        Brand = tireAggregate.Brand,
        Model = tireAggregate.Model,

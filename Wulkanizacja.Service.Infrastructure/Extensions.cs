@@ -26,9 +26,6 @@ namespace Wulkanizacja.Service.Infrastructure
 {
     public static class Extensions
     {
-        private const string DistributedCacheSettingsSectionName = "DistributedCacheSettings";
-        private const string InfrastructureSectionName = "infrastructure";
-
         public static IConveyBuilder AddPostgres(this IConveyBuilder builder)
         {
             builder.Services
@@ -41,7 +38,7 @@ namespace Wulkanizacja.Service.Infrastructure
                 });
 
             builder.Services
-                .AddScoped<IContextsMigrationService, ContextsMigrationService>()
+                .AddScoped<IDatabaseMigrationService, DatabaseMigrationService>()
                 .AddScoped<ITiresRepository, TiresRepository>()
                 .AddDbContext<TiresDbContext>((service, options) =>
                 {

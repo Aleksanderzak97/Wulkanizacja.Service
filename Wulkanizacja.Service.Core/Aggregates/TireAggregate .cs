@@ -46,7 +46,7 @@ namespace Wulkanizacja.Service.Core.Aggregates
 
         public void AddTire()
         {
-            AddEvent(new AddTireEvent(this));
+            AddDomainEvent(new AddTireEvent(this));
         }
     }
 }

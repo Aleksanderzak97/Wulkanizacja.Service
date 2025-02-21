@@ -34,6 +34,7 @@ namespace Wulkanizacja.Service.Infrastructure.Mapping
 
             return new(new TireModel
             {
+                Id = tireRecord.TireId.ToString(),
                 Brand = tireRecord.Brand,
                 Model = tireRecord.Model,
                 Size = tireRecord.Size,

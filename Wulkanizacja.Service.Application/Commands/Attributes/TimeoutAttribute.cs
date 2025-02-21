@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Wulkanizacja.Service.Application.Commands.Attributes
 {
-    public class TimeoutAttribute : HandlerAttributeBase
+    public class TimeoutAttribute : CommandHandlerAttributeBase
     {
         #region Properties
 

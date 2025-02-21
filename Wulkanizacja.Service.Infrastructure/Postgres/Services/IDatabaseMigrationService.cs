@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Wulkanizacja.Service.Infrastructure.Postgres.Services
 {
-    public interface IContextsMigrationService
+    public interface IDatabaseMigrationService
     {
-        Task MigrateContextsAsync(CancellationToken cancellationToken = default);
+        Task EnsureMigrationsAppliedAsync(CancellationToken cancellationToken = default);
     }
 }

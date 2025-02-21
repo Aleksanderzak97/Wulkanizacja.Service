@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Wulkanizacja.Service.Application.Commands.Attributes
 {
-    internal class RetryAttribute : HandlerAttributeBase
+    internal class AutoRetryOnExceptionAttribute : CommandHandlerAttributeBase
     {
         #region Properties
 
@@ -18,7 +18,7 @@ namespace Wulkanizacja.Service.Application.Commands.Attributes
 
         #region Constructors
 
-        public RetryAttribute(int maxRetryAttempts, int delayInMiliseconds, Type exceptionType)
+        public AutoRetryOnExceptionAttribute(int maxRetryAttempts, int delayInMiliseconds, Type exceptionType)
         {
             MaxRetryAttempts = maxRetryAttempts;
             Delay = TimeSpan.FromMilliseconds(delayInMiliseconds);

@@ -1,29 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Wulkanizacja.Service.Core.Events;
 
 namespace Wulkanizacja.Service.Core.Aggregates
 {
+    /// <summary>
+    /// Bazowa klasa agregatu, zawierająca mechanizm przechowywania zdarzeń domenowych.
+    /// </summary>
     public abstract class AggregateRoot
     {
-        private readonly List<IDomainEvent> _events = [];
-        public IEnumerable<IDomainEvent> Events => _events;
+        private readonly List<IDomainEvent> _domainEvents = new List<IDomainEvent>();
+
+        /// <summary>
+        /// Zdarzenia domenowe, które zostały wygenerowane przez agregat.
+        /// </summary>
+        public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+
         public AggregateId Id { get; protected set; }
         public int Version { get; protected set; }
 
-        protected void AddEvent(IDomainEvent @event)
+        /// <summary>
+        /// Dodaje zdarzenie domenowe do agregatu.
+        /// </summary>
+        /// <param name="domainEvent">Zdarzenie domenowe do dodania.</param>
+        protected void AddDomainEvent(IDomainEvent domainEvent)
         {
-            if (_events.Count == 0)
-            {
-                Version++;
-            }
+            if (domainEvent == null)
+                throw new ArgumentNullException(nameof(domainEvent));
 
-            _events.Add(@event);
+            _domainEvents.Add(domainEvent);
+            Version++; // Możesz rozważyć inny mechanizm wersjonowania
         }
 
-        public void ClearEvents() => _events.Clear();
+        /// <summary>
+        /// Czyści zgromadzone zdarzenia domenowe.
+        /// </summary>
+        public void ClearDomainEvents() => _domainEvents.Clear();
     }
 }

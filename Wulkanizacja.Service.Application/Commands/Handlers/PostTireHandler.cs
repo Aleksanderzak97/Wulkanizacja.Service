@@ -16,14 +16,14 @@ namespace Wulkanizacja.Service.Application.Commands.Handlers
 {
     internal class PostTireHandler(ILogger<PostTireHandler> logger, IMessagePublisher publisher, ITiresRepository repository) : CommandHandlerBase<PostTire>(logger)
     {
-        [Retry(2, 1000, typeof(DBConcurrencyException))]
+        [AutoRetryOnException(2, 1000, typeof(DBConcurrencyException))]
 
         public override async Task HandleCommandAsync(PostTire command, CancellationToken cancellationToken = default)
         {
             var tire = new TireAggregate(command.Tire.ToModel());
             tire.AddTire();
 
-            await publisher.PublishDomainEventsAsync(tire.Events.ToArray());
+            await publisher.PublishDomainEventsAsync(tire.DomainEvents.ToArray());
             await Task.CompletedTask;
         }
 

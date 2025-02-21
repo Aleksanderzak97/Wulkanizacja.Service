@@ -36,7 +36,7 @@ namespace Wulkanizacja.Service.Application.Commands.Handlers
             var methodInfo = GetType().GetMethod(nameof(HandleCommandAsync), BindingFlags.Public | BindingFlags.Instance);
             var attributes = methodInfo?.GetCustomAttributes(true);
 
-            return attributes?.Where(a => a is HandlerAttributeBase)
+            return attributes?.Where(a => a is CommandHandlerAttributeBase)
                 .Select(a => a as Attribute).ToArray() ?? Array.Empty<Attribute?>();
         }
 
@@ -47,7 +47,7 @@ namespace Wulkanizacja.Service.Application.Commands.Handlers
             var pipelineBuilder = new ResiliencePipelineBuilder();
 
             foreach (var attribute in attributes)
-                if (attribute is RetryAttribute retryAttribute)
+                if (attribute is AutoRetryOnExceptionAttribute retryAttribute)
                 {
                     var retryOptions = new RetryStrategyOptions
                     {
