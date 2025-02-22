@@ -97,22 +97,31 @@ app.UseDispatcherEndpoints(endpoints => endpoints
         var dispatcher = httpContext.RequestServices.GetRequiredService<IQueryDispatcher>();
         var result = await dispatcher.QueryAsync(query);
 
-        // Zwracasz wynik
         await httpContext.Response.WriteAsJsonAsync(result);
     },
     endpoint: endpoint => endpoint.WithDescription("Pobiera opony na podstawie rozmiaru i typu")
 )
 
+.Get("tires/findById",
+    context: async httpContext =>
+    {
+        var tireId = httpContext.Request.Query["TireId"].ToString();
 
+        var query = new GetTireById
+        {
+           TireId = Guid.Parse(tireId)
+        };
 
-//.Get<GetTire, TireDto>("tires/{id}",
-//    endpoint: endpoint => endpoint.WithDescription("Pobiera oponę na podstawie ID"))
+        var dispatcher = httpContext.RequestServices.GetRequiredService<IQueryDispatcher>();
+        var result = await dispatcher.QueryAsync(query);
 
-//.Get<GetAllTires, IEnumerable<TireDto>>("tires",
-//    endpoint: endpoint => endpoint.WithDescription("Pobiera wszystkie opony"))
+        await httpContext.Response.WriteAsJsonAsync(result);
+    },
+    endpoint: endpoint => endpoint.WithDescription("Pobiera opony na podstawie TireId")
+)
 
-//.Put<UpdateTire>("tires/update",
-//    endpoint: endpoint => endpoint.WithDescription("Aktualizuje oponę"))
+.Put<PutTire>("tires/update",
+    endpoint: endpoint => endpoint.WithDescription("Aktualizuje oponę"))
 
 //.Delete<DeleteTire>("tires/{id}/delete",
 //    endpoint: endpoint => endpoint.WithDescription("Usuwa oponę o podanym ID"))

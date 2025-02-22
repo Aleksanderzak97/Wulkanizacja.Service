@@ -8,7 +8,7 @@ using Wulkanizacja.Service.Core.Repositories;
 
 namespace Wulkanizacja.Service.Application.Events.Handlers
 {
-    public class AddDeviceEventHandler(ITiresRepository repository) : IDomainEventHandler<AddTireEvent>
+    public class AddTireEventHandler(ITiresRepository repository) : IDomainEventHandler<AddTireEvent>
     {
         public async Task HandleAsync(AddTireEvent @event, CancellationToken cancellationToken = default)
         {

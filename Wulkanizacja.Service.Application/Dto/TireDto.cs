@@ -9,7 +9,7 @@ namespace Wulkanizacja.Service.Application.Dto
 {
     public class TireDto
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }
         public string Size { get; set; }

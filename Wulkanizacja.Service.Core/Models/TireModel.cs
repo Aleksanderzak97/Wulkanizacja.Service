@@ -10,7 +10,7 @@ namespace Wulkanizacja.Service.Core.Models
     public class TireModel
     {
         public TireType TireType { get; set; }
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string ShortSerialNumber { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }

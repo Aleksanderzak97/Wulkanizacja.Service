@@ -9,7 +9,7 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Entities
 {
     public class TireTypeRecord
     {
-       
+
         public short TireTypeId { get; set; } // 1 = Letnia, 2 = Zimowa, 3 = Całoroczna
         public string Name { get; set; } // Nazwa typu (np. "Winter", "Summer", "All-Season")
     }

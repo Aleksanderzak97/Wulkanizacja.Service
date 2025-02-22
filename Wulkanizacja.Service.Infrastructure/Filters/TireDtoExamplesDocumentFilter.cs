@@ -31,7 +31,6 @@ namespace Wulkanizacja.Service.Infrastructure.Filters
                                         {
                                             ["Tire"] = new OpenApiObject
                                             {
-                                                ["Id"] = new OpenApiString("1"),
                                                 ["Brand"] = new OpenApiString("Michelin"),
                                                 ["Model"] = new OpenApiString("Pilot Sport 4"),
                                                 ["Size"] = new OpenApiString("205/55 R16"),
