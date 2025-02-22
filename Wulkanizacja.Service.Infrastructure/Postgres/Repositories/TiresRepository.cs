@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,7 +40,6 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Repositories
             }
         }
 
-
         public async Task<IEnumerable<TireAggregate>> GetBySizeAndTypeAsync(string size, TireType tiretype, CancellationToken cancellationToken)
         {
             await WaitForFreeTransaction(cancellationToken);
@@ -51,11 +51,12 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Repositories
                 .ToListAsync(cancellationToken);
 
             if (tireRecords == null || !tireRecords.Any())
-                return Enumerable.Empty<TireAggregate>();
+                throw new TireNotFoundException($"Nie znaleziono opon o rozmiarze {size} i typie {tiretype}");
 
             return tireRecords.Select(t => new TireAggregate(t.ToModel(), t.Id, t.CreateDate, t.EditDate));
 
         }
+
         public async Task<TireAggregate> GetByIdAsync(Guid tireId, CancellationToken cancellationToken)
         {
             await WaitForFreeTransaction(cancellationToken);
@@ -65,11 +66,11 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Repositories
             .Select(d => d.ToAggregate())
             .FirstOrDefaultAsync(cancellationToken);
 
-            if (tireRecord == null) return null;
+            if (tireRecord == null)
+                throw new TireNotFoundException($"Nie znaleziono opony o ID {tireId}");
 
             return tireRecord;
         }
-
 
         public async Task<TireAggregate> UpdateTire(TireAggregate updatedTire, TireAggregate oldTire, CancellationToken cancellationToken)
         {
@@ -107,6 +108,36 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Repositories
             }
         }
 
+        public async Task DeleteAsync(Guid tireId, CancellationToken cancellationToken)
+        {
+            await WaitForFreeTransaction(cancellationToken);
+            await using var transaction = await tiresDbContext.Database.BeginTransactionAsync(cancellationToken);
+
+            try
+            {
+                var tire = await tiresDbContext.Tires.FirstOrDefaultAsync(t => t.TireId == tireId, cancellationToken);
+                if (tire == null)
+                    throw new TireNotFoundForDeleteException("Nie znaleziono w bazie opony do usunięcia.");
+
+
+                tiresDbContext.Tires.Remove(tire);
+                await tiresDbContext.SaveChangesAsync(cancellationToken);
+                await transaction.CommitAsync(cancellationToken);
+
+            }
+            catch (TireNotFoundForDeleteException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                await transaction.RollbackAsync(cancellationToken);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                await transaction.RollbackAsync(cancellationToken);
+                throw;
+            }
+        }
         private async Task SaveContextChangesAsync(CancellationToken cancellationToken)
         {
             try
@@ -126,7 +157,5 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Repositories
                 await Task.Delay(100, cancellationToken);
             }
         }
-
     }
-
 }

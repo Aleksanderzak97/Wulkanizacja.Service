@@ -13,7 +13,6 @@ namespace Wulkanizacja.Service.Application.Events.Handlers
         public async Task HandleAsync(AddTireEvent @event, CancellationToken cancellationToken = default)
         {
             var createTire = await repository.CreateTire(@event.Tire, cancellationToken);
-
         }
     }
 }

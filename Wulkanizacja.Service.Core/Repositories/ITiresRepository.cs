@@ -18,5 +18,6 @@ namespace Wulkanizacja.Service.Core.Repositories
 
         Task<TireAggregate> UpdateTire(TireAggregate updatedTire, TireAggregate oldTire, CancellationToken cancellationToken);
 
+        Task DeleteAsync(Guid tireId, CancellationToken cancellationToken);
     }
 }

@@ -12,7 +12,7 @@ using Wulkanizacja.Service.Core.Repositories;
 
 namespace Wulkanizacja.Service.Application.Commands.Handlers
 {
-    internal class PutTireHandler(ILogger<PutTireHandler> logger, IMessagePublisher publisher, ITiresRepository repository, TireUpdater tireUpdater)
+    internal class PutTireHandler(ILogger<PutTireHandler> logger, IMessagePublisher publisher, TireUpdater tireUpdater)
         : CommandHandlerBase<PutTire>(logger)
     {
         public override async Task HandleCommandAsync(PutTire command, CancellationToken cancellationToken = default)

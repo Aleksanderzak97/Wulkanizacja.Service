@@ -123,8 +123,24 @@ app.UseDispatcherEndpoints(endpoints => endpoints
 .Put<PutTire>("tires/update",
     endpoint: endpoint => endpoint.WithDescription("Aktualizuje oponę"))
 
-//.Delete<DeleteTire>("tires/{id}/delete",
-//    endpoint: endpoint => endpoint.WithDescription("Usuwa oponę o podanym ID"))
+    .Delete("tires/{TireId}/delete",
+        context: async httpContext =>
+        {
+            var tireIdString = httpContext.Request.RouteValues["TireId"]?.ToString();
+            if (string.IsNullOrEmpty(tireIdString) || !Guid.TryParse(tireIdString, out var tireId))
+            {
+                httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+                await httpContext.Response.WriteAsJsonAsync(new { error = "Niepoprawny identyfikator opony." });
+                return;
+            }
+
+            var command = new DeleteTire(tireId);
+            var dispatcher = httpContext.RequestServices.GetRequiredService<ICommandDispatcher>();
+
+            await dispatcher.SendAsync(command);
+            httpContext.Response.StatusCode = StatusCodes.Status202Accepted;
+        },
+        endpoint: endpoint => endpoint.WithDescription("Usuwa oponę na podstawie TireId"))
 );
 
 app.Run();

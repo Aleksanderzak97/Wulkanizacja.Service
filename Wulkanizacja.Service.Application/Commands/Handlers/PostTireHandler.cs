@@ -14,7 +14,7 @@ using Wulkanizacja.Service.Application.Mapping;
 
 namespace Wulkanizacja.Service.Application.Commands.Handlers
 {
-    internal class PostTireHandler(ILogger<PostTireHandler> logger, IMessagePublisher publisher, ITiresRepository repository) : CommandHandlerBase<PostTire>(logger)
+    internal class PostTireHandler(ILogger<PostTireHandler> logger, IMessagePublisher publisher) : CommandHandlerBase<PostTire>(logger)
     {
         [AutoRetryOnException(2, 1000, typeof(DBConcurrencyException))]
 
