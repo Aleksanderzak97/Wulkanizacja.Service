@@ -16,7 +16,8 @@ namespace Wulkanizacja.Service.Application.Commands
         public string? SpeedIndex { get; set; } = null;
         public string? LoadIndex { get; set; } = null;
         public short? TireType { get; set; } = null;
-        public DateTime? ManufactureDate { get; set; } = null;
+        public DateTimeOffset? ManufactureDate { get; set; } = null;
+        public string? ManufactureWeekYear { get; set; } = null;
         public string? Comments { get; set; } = null;
         public int? QuantityInStock { get; set; } = null;
     }

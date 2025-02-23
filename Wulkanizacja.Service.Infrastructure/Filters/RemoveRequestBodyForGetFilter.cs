@@ -9,7 +9,6 @@ namespace Wulkanizacja.Service.Infrastructure.Filters
         {
             if (context.ApiDescription.HttpMethod?.ToUpperInvariant() == "GET")
             {
-                // Usuń request body, jeżeli metoda to GET
                 operation.RequestBody = null;
             }
         }

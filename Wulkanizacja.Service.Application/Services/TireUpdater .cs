@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Wulkanizacja.Service.Application.Commands;
+using Wulkanizacja.Service.Application.Converters;
 using Wulkanizacja.Service.Core.Aggregates;
 using Wulkanizacja.Service.Core.Enums;
 using Wulkanizacja.Service.Core.Events;
@@ -16,15 +17,20 @@ namespace Wulkanizacja.Service.Application.Services
     {
         private readonly ITiresRepository _repository;
         private readonly ILogger<TireUpdater> _logger;
+        private readonly WeekYearToDateConverter _weekYearToDateConverter;
 
-        public TireUpdater(ITiresRepository repository, ILogger<TireUpdater> logger)
+
+        public TireUpdater(ITiresRepository repository, ILogger<TireUpdater> logger, WeekYearToDateConverter weekYearToDateConverter)
         {
             _repository = repository;
             _logger = logger;
+            _weekYearToDateConverter = weekYearToDateConverter;
         }
 
         public async Task<TireAggregate?> UpdateTireAsync(PutTire command, CancellationToken cancellationToken)
         {
+            if(command.ManufactureWeekYear != null)
+            command.ManufactureDate = _weekYearToDateConverter.ConvertWeekYearToDate(command.ManufactureWeekYear).ToUniversalTime();
             var tire = await _repository.GetByIdAsync(command.TireId, cancellationToken);
             if (tire == null)
             {

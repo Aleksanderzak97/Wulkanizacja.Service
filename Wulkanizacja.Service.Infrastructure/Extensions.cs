@@ -52,8 +52,6 @@ namespace Wulkanizacja.Service.Infrastructure
                 });
 
             return builder;
-
-
         }
 
         public static IConveyBuilder AddSwagger(this IConveyBuilder builder)
@@ -74,8 +72,6 @@ namespace Wulkanizacja.Service.Infrastructure
 
 
             return builder.AddWebApiSwaggerDocs();
-
-
         }
 
 

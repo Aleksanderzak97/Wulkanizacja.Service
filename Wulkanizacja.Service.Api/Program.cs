@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Filters;
 using Wulkanizacja.Service.Application;
 using Wulkanizacja.Service.Application.Commands;
+using Wulkanizacja.Service.Application.Converters;
 using Wulkanizacja.Service.Application.Dto;
 using Wulkanizacja.Service.Application.Queries;
 using Wulkanizacja.Service.Core.Enums;
@@ -26,6 +27,7 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnC
 
 builder.Services.Configure<PostgresOptions>(builder.Configuration.GetSection("postgres"));
 
+builder.Services.AddSingleton<WeekYearToDateConverter>();
 
 
 builder.Services.AddControllers();

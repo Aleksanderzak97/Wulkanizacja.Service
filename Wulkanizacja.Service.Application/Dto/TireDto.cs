@@ -17,6 +17,7 @@ namespace Wulkanizacja.Service.Application.Dto
         public string LoadIndex { get; set; }
         public TireType TireType { get; set; }
         public DateTimeOffset? ManufactureDate { get; set; }
+        public string ManufactureWeekYear { get; set; }
         public DateTimeOffset? CreateDate { get; set; }
         public DateTimeOffset? EditDate { get; set; }
         public string? Comments { get; set; }
