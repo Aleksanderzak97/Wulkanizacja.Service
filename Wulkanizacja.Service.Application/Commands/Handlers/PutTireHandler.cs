@@ -1,8 +1,10 @@
 ﻿using Convey.CQRS.Commands;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
+using Wulkanizacja.Service.Application.Commands.Attributes;
 using Wulkanizacja.Service.Application.Events;
 using Wulkanizacja.Service.Application.Mapping;
 using Wulkanizacja.Service.Application.Services;
@@ -15,6 +17,8 @@ namespace Wulkanizacja.Service.Application.Commands.Handlers
     internal class PutTireHandler(ILogger<PutTireHandler> logger, IMessagePublisher publisher, TireUpdater tireUpdater)
         : CommandHandlerBase<PutTire>(logger)
     {
+        [AutoRetryOnException(2, 1000, typeof(DBConcurrencyException))]
+
         public override async Task HandleCommandAsync(PutTire command, CancellationToken cancellationToken = default)
         {
 
@@ -28,6 +32,7 @@ namespace Wulkanizacja.Service.Application.Commands.Handlers
             if (updatedTire.DomainEvents.Any())
             {
                 await publisher.PublishDomainEventsAsync(updatedTire.DomainEvents.ToArray());
+                await Task.CompletedTask;
             }
         }
 

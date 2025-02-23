@@ -61,6 +61,23 @@ namespace Wulkanizacja.Service.Core.Aggregates
             QuantityInStock = tireModel.QuantityInStock;
         }
 
+        public TireAggregate(Guid tireId, string? brand, string? model, string? size, string? speedIndex, string? loadIndex, short? tireType,
+                     DateTimeOffset? manufactureDate, string? comments, int quantityInStock)
+        {
+            Id = new AggregateId(tireId);
+            Brand = brand;
+            Model = model;
+            Size = size;
+            SpeedIndex = speedIndex;
+            LoadIndex = loadIndex;
+            Type = (TireType)tireType;
+            ManufactureDate = manufactureDate;
+            EditDate = DateTimeOffset.UtcNow;
+            Comments = comments;
+            QuantityInStock = quantityInStock;
+
+        }
+
 
         public TireAggregate(TireModel tireModel, DateTimeOffset? createDate, DateTimeOffset? editDate) : this(tireModel, tireModel.Id, createDate, editDate)
         {
@@ -68,7 +85,6 @@ namespace Wulkanizacja.Service.Core.Aggregates
         public TireAggregate(TireModel tireModel) : this(tireModel, tireModel.Id)
         {
         }
-
 
         public void AddTire()
         {
@@ -80,7 +96,7 @@ namespace Wulkanizacja.Service.Core.Aggregates
 
         public TireAggregate UpdateTire(TireAggregate updatedTireAggregate)
         {
-            AddDomainEvent(new UpdateTireEvent(updatedTireAggregate, this));
+            AddDomainEvent(new UpdateTireEvent(this,updatedTireAggregate));
             return updatedTireAggregate;
         }
 

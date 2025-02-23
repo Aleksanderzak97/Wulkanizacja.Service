@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Wulkanizacja.Service.Application.Commands;
 using Wulkanizacja.Service.Core.Aggregates;
 using Wulkanizacja.Service.Core.Enums;
+using Wulkanizacja.Service.Core.Events;
 using Wulkanizacja.Service.Core.Repositories;
 
 namespace Wulkanizacja.Service.Application.Services
@@ -31,7 +32,14 @@ namespace Wulkanizacja.Service.Application.Services
                 return null;
             }
 
-            var originalTire = tire.Clone();
+            var originalTire = new TireAggregate(
+                tire.Id.Value, tire.Brand, tire.Model, tire.Size,
+                tire.SpeedIndex, tire.LoadIndex, (short)tire.Type,
+                tire.ManufactureDate, tire.Comments, tire.QuantityInStock
+            );
+
+            originalTire.CreateDate = tire.CreateDate.Value.ToUniversalTime();
+            originalTire.EditDate = tire.EditDate.Value.ToUniversalTime();
 
             ApplyChanges(tire, command);
 
@@ -41,12 +49,13 @@ namespace Wulkanizacja.Service.Application.Services
                 return null;
             }
 
+            tire.CreateDate = originalTire.CreateDate;
 
             tire.EditDate = DateTimeOffset.UtcNow
                 .AddSeconds(-DateTimeOffset.UtcNow.Second)
                 .AddMilliseconds(-DateTimeOffset.UtcNow.Millisecond);
 
-            tire.UpdateTire(tire);
+            tire.UpdateTire(originalTire);
 
             _logger.LogInformation("Zaktualizowano oponę o ID {TireId}", command.TireId);
             return tire;

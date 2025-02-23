@@ -7,5 +7,5 @@ using Wulkanizacja.Service.Core.Aggregates;
 
 namespace Wulkanizacja.Service.Core.Events
 {
-    public record UpdateTireEvent(TireAggregate NewTire, TireAggregate OldTire) : IDomainEvent;
+    public record UpdateTireEvent(TireAggregate tire, TireAggregate oldTire) : IDomainEvent;
 }

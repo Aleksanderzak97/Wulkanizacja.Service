@@ -8,5 +8,4 @@ using System.Windows.Input;
 namespace Wulkanizacja.Service.Core.Events
 {
     public record DeleteTireEvent(Guid TireId) : IDomainEvent;
-
 }

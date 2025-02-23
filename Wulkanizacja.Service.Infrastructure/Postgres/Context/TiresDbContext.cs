@@ -39,7 +39,6 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Context
                 entity.Property(e => e.Name).IsRequired();
             });
 
-            // Dodaj inicjalizację danych TireTypes
             modelBuilder.Entity<TireTypeRecord>().HasData(
                 new TireTypeRecord { TireTypeId = 1, Name = "Letnia" },
                 new TireTypeRecord { TireTypeId = 2, Name = "Zimowa" },
