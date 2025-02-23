@@ -20,5 +20,10 @@ namespace Wulkanizacja.Service.Application.Commands
         public string? ManufactureWeekYear { get; set; } = null;
         public string? Comments { get; set; } = null;
         public int? QuantityInStock { get; set; } = null;
+
+        public void SetTireId(Guid tireId)
+        {
+            TireId = tireId;
+        }
     }
 }

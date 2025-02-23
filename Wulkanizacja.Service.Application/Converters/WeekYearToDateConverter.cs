@@ -11,6 +11,10 @@ namespace Wulkanizacja.Service.Application.Converters
     {
         public DateTimeOffset ConvertWeekYearToDate(string weekYear)
         {
+            if (string.IsNullOrWhiteSpace(weekYear))
+            {
+                throw new ArgumentException("Parametr 'weekYear' nie może być pusty ani null.", nameof(weekYear));
+            }
             if (weekYear.Length != 4)
                 throw new ArgumentException("Format tygodnia i roku powinien mieć 4 znaki, np. '5224'.", nameof(weekYear));
 
