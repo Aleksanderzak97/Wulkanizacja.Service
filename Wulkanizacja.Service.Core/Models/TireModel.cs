@@ -23,8 +23,4 @@ namespace Wulkanizacja.Service.Core.Models
         public string? Comments { get; set; }
         public int QuantityInStock { get; set; }
     }
-
-
-
-
 }
