@@ -30,11 +30,11 @@ Plik `appsettings.json` zawiera konfigurację połączenia z bazą danych Postgr
 
 
 ## Endpointy
-- `POST /tires` - Dodaje nową oponę.
-- `GET /tires/size/{Size}/TireType/{TireType}` - Pobiera listę opon o podanym rozmiarze i typie.
-- `GET /tires/{TireId}` - Pobiera dane konkretnej opony.
-- `PUT /tires/updateTire/{TireId}` - Aktualizuje dane opony.
-- `DELETE /tires/{TireId}/removeTire` - Usuwa oponę.
+- `POST    /tires` - Dodaje nową oponę.
+- `GET     /tires/size/{Size}/TireType/{TireType}` - Pobiera listę opon o podanym rozmiarze i typie.
+- `GET     /tires/{TireId}` - Pobiera dane konkretnej opony.
+- `PUT     /tires/updateTire/{TireId}` - Aktualizuje dane opony.
+- `DELETE  /tires/{TireId}/removeTire` - Usuwa oponę.
 
 ## Dokumentacja API
 Dokumentacja API jest dostępna pod adresem [http://localhost:5884/swagger](http://localhost:5884/swagger) po uruchomieniu aplikacji.
