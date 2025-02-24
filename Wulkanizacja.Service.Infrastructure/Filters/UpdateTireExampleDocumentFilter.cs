@@ -8,7 +8,7 @@ using Wulkanizacja.Service.Core.Enums;
 
 namespace Wulkanizacja.Service.Infrastructure.Filters
 {
-    public class PutTireExamplesDocumentFilter : IDocumentFilter
+    public class UpdateTireExampleDocumentFilter : IDocumentFilter
     {
         public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {

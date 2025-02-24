@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Wulkanizacja.Service.Infrastructure.Filters
 {
-    public class SizeAndTireTypeParameterDocumentFilter : IDocumentFilter
+    public class TireSizeTypeParameterDocumentFilter : IDocumentFilter
     {
         public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {
