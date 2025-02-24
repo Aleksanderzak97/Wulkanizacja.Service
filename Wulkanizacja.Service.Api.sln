@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wulkanizacja.Service.Infras
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wulkanizacja.Service.Api", "Wulkanizacja.Service.Api\Wulkanizacja.Service.Api.csproj", "{CBDBB9AF-353A-46D3-A3B8-714FDDA1175E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wulkanizacja.Service.Tests", "Wulkanizacja.Service.Tests\Wulkanizacja.Service.Tests.csproj", "{3B631B9D-7881-45A3-9E7F-ADE7D40DF346}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{CBDBB9AF-353A-46D3-A3B8-714FDDA1175E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBDBB9AF-353A-46D3-A3B8-714FDDA1175E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBDBB9AF-353A-46D3-A3B8-714FDDA1175E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B631B9D-7881-45A3-9E7F-ADE7D40DF346}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B631B9D-7881-45A3-9E7F-ADE7D40DF346}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B631B9D-7881-45A3-9E7F-ADE7D40DF346}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B631B9D-7881-45A3-9E7F-ADE7D40DF346}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
