@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "fa292553-0a8d-4173-acd4-0325e37b64e5",
+		"name": "Wulkanizacja",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26016137"
+	},
+	"item": [
+		{
+			"name": "GetTiresBySizeAndTireType",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5884/tires/size/205%2F55 R16/TireType/1"
+			},
+			"response": []
+		},
+		{
+			"name": "GetTireById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5884/tires/72c25aea-7fa6-468e-af3d-b2b797145017"
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteTireById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:5884/tires/a3858536-1687-4452-9e77-7a00599f5cb3/removeTire"
+			},
+			"response": []
+		},
+		{
+			"name": "PutUpdateTire",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Brand\": \"Michelin\",\r\n  \"Model\": \"Pilot Sport 4\",\r\n  \"Size\": \"205/55 R16\",\r\n  \"SpeedIndex\": \"Y\",\r\n  \"LoadIndex\": \"91\",\r\n  \"TireType\": 1,\r\n  \"ManufactureWeekYear\": \"5224\",\r\n  \"Comments\": \"Przykładowe komentarze\",\r\n  \"QuantityInStock\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5884/tires/updateTire/29053202-5ed2-4bb8-a3a8-0e0493da2e04"
+			},
+			"response": []
+		},
+		{
+			"name": "PostTire",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Tire\": {\r\n    \"Brand\": \"Michelin\",\r\n    \"Model\": \"Pilot Sport 4\",\r\n    \"Size\": \"205/55 R16\",\r\n    \"SpeedIndex\": \"Y\",\r\n    \"LoadIndex\": \"91\",\r\n    \"TireType\": 1,\r\n    \"ManufactureDate\": \"2025-01-01T00:00:00Z\",\r\n    \"ManufactureWeekYear\": \"5224\",\r\n    \"Comments\": \"Przykładowe komentarze\",\r\n    \"QuantityInStock\": 10\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5884/tires"
+			},
+			"response": []
+		}
+	]
+}
