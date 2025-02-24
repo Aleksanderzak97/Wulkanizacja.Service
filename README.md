@@ -38,6 +38,7 @@ Plik `appsettings.json` zawiera konfigurację połączenia z bazą danych Postgr
 
 ## Dokumentacja API
 Dokumentacja API jest dostępna pod adresem [http://localhost:5884/swagger](http://localhost:5884/swagger) po uruchomieniu aplikacji.
+Aby przetestować endpointy, można użyć załączonej kolekcji Postmana znajdującej się w katalogu `Postman` (Tutaj gdzie ten README):
 
 ## Autorzy
 - [Aleksander Żak]
