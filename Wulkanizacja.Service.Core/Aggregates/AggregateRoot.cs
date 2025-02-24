@@ -29,7 +29,7 @@ namespace Wulkanizacja.Service.Core.Aggregates
                 throw new ArgumentNullException(nameof(domainEvent));
 
             _domainEvents.Add(domainEvent);
-            Version++; // Możesz rozważyć inny mechanizm wersjonowania
+            Version++;
         }
 
         /// <summary>

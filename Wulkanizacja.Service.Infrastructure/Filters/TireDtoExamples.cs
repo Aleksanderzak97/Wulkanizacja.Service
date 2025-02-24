@@ -10,7 +10,7 @@ namespace Wulkanizacja.Service.Infrastructure.Filters
         {
             return new TireDto
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = Guid.NewGuid(),
                 Brand = "Michelin",
                 Model = "Pilot Sport 4",
                 Size = "205/55 R16",

@@ -21,6 +21,7 @@ using Convey.WebApi.Swagger;
 using Convey.CQRS.Queries;
 using Wulkanizacja.Service.Infrastructure.Filters;
 using Swashbuckle.AspNetCore.Filters;
+using Wulkanizacja.Service.Application.Services;
 
 namespace Wulkanizacja.Service.Infrastructure
 {
@@ -30,7 +31,7 @@ namespace Wulkanizacja.Service.Infrastructure
         {
             builder.Services
                 .AddOptions()
-             
+
                 .AddOptions<PostgresOptions>()
                 .Configure<IConfiguration>((options, configuration) =>
                 {
@@ -40,40 +41,37 @@ namespace Wulkanizacja.Service.Infrastructure
             builder.Services
                 .AddScoped<IDatabaseMigrationService, DatabaseMigrationService>()
                 .AddScoped<ITiresRepository, TiresRepository>()
+                .AddScoped<TireUpdater>()
                 .AddDbContext<TiresDbContext>((service, options) =>
                 {
                     var postgresOptions = service.GetRequiredService<IOptions<PostgresOptions>>().Value;
                     options
                         .UseNpgsql(postgresOptions.ConnectionString)
                         .UseExceptionProcessor();
-                     
+
                 });
 
             return builder;
-
-
         }
 
-public static IConveyBuilder AddSwagger(this IConveyBuilder builder)
-{
-    builder.Services.Configure<SwaggerOptions>(options =>
-    {
-        options.Enabled = true;
-        options.ReDocEnabled = false;
-        options.Name = "v1";
-        options.Title = "Wulkanizacja Service API";
-        options.Version = "v1";
-        options.RoutePrefix = "swagger";
-        options.IncludeSecurity = false;
-    });
+        public static IConveyBuilder AddSwagger(this IConveyBuilder builder)
+        {
+            builder.Services.Configure<SwaggerOptions>(options =>
+            {
+                options.Enabled = true;
+                options.ReDocEnabled = false;
+                options.Name = "v1";
+                options.Title = "Wulkanizacja Service API";
+                options.Version = "v1";
+                options.RoutePrefix = "swagger";
+                options.IncludeSecurity = false;
+            });
 
-    builder.Services.AddSingleton(resolver =>
-        resolver.GetRequiredService<IOptions<SwaggerOptions>>().Value);
+            builder.Services.AddSingleton(resolver =>
+                resolver.GetRequiredService<IOptions<SwaggerOptions>>().Value);
 
 
             return builder.AddWebApiSwaggerDocs();
-
-
         }
 
 

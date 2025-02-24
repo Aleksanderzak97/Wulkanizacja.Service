@@ -10,7 +10,7 @@ namespace Wulkanizacja.Service.Application.Queries.Handlers
 {
     public class GetTiresBySizeAndTypeHandler(ITiresRepository tiresRepository) : IQueryHandler<GetTiresBySizeAndType, IEnumerable<TireDto>>
     {
-    
+
         public async Task<IEnumerable<TireDto>> HandleAsync(GetTiresBySizeAndType query, CancellationToken cancellationToken = default)
         {
             var tires = await tiresRepository.GetBySizeAndTypeAsync(query.Size, query.TireType, cancellationToken);

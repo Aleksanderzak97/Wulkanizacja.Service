@@ -12,12 +12,12 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Services
     public class DatabaseMigrationService : IDatabaseMigrationService
     {
         private readonly ILogger<DatabaseMigrationService> _logger;
-        private readonly TiresDbContext _dbContext ;
+        private readonly TiresDbContext _dbContext;
 
         public DatabaseMigrationService(ILogger<DatabaseMigrationService> logger, TiresDbContext dbContext)
         {
             _logger = logger;
-            _dbContext  = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task EnsureMigrationsAppliedAsync(CancellationToken cancellationToken = default)

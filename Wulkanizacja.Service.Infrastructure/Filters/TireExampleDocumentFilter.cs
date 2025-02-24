@@ -31,7 +31,6 @@ namespace Wulkanizacja.Service.Infrastructure.Filters
                                         {
                                             ["Tire"] = new OpenApiObject
                                             {
-                                                ["Id"] = new OpenApiString("1"),
                                                 ["Brand"] = new OpenApiString("Michelin"),
                                                 ["Model"] = new OpenApiString("Pilot Sport 4"),
                                                 ["Size"] = new OpenApiString("205/55 R16"),
@@ -39,8 +38,7 @@ namespace Wulkanizacja.Service.Infrastructure.Filters
                                                 ["LoadIndex"] = new OpenApiString("91"),
                                                 ["TireType"] = new OpenApiInteger((int)TireType.Summer),
                                                 ["ManufactureDate"] = new OpenApiString("2025-01-01T00:00:00Z"),
-                                                ["CreateDate"] = new OpenApiString("2025-01-01T00:00:00Z"),
-                                                ["EditDate"] = new OpenApiString("2025-01-01T00:00:00Z"),
+                                                ["ManufactureWeekYear"] = new OpenApiString("5224"),
                                                 ["Comments"] = new OpenApiString("Przykładowe komentarze"),
                                                 ["QuantityInStock"] = new OpenApiInteger((int)10)
                                             }
