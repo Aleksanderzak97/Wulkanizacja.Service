@@ -16,6 +16,16 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Context
             _options = options.Value;
         }
 
+        public TiresDbContextFactory()
+        {
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../Wulkanizacja.Service.Api"))
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            _options = configuration.GetSection("postgres").Get<PostgresOptions>();
+        }
+
         public TiresDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<TiresDbContext>();

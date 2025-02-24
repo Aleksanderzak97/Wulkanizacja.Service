@@ -20,6 +20,7 @@ using Wulkanizacja.Service.Core.Enums;
 using Wulkanizacja.Service.Infrastructure;
 using Wulkanizacja.Service.Infrastructure.Filters;
 using Wulkanizacja.Service.Infrastructure.Postgres.Options;
+using Wulkanizacja.Service.Infrastructure.Postgres.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,6 +65,12 @@ builder.Services.AddSwaggerExamplesFromAssemblyOf<TireDtoExamples>();
 
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var migrationService = scope.ServiceProvider.GetRequiredService<IDatabaseMigrationService>();
+    await migrationService.EnsureMigrationsAppliedAsync();
+}
 
 // Middleware i konfiguracja aplikacji
 
