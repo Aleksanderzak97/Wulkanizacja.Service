@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Wulkanizacja.Service.Application\Wulkanizacja.Service.Application.csproj" />
-    <ProjectReference Include="..\Wulkanizacja.Service.Core\Wulkanizacja.Service.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
