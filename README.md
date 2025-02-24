@@ -37,7 +37,7 @@ Plik `appsettings.json` zawiera konfigurację połączenia z bazą danych Postgr
 - `DELETE /tires/{TireId}/removeTire` - Usuwa oponę.
 
 ## Dokumentacja API
-Dokumentacja API jest dostępna pod adresem `[http://localhost:5884/swagger](http://localhost:5884/swagger)` po uruchomieniu aplikacji.
+Dokumentacja API jest dostępna pod adresem [http://localhost:5884/swagger](http://localhost:5884/swagger) po uruchomieniu aplikacji.
 
 ## Autorzy
 - [Aleksander Żak]
