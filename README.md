@@ -1,7 +1,7 @@
-# Wulkanizacja Service API
+# Wulkanizacja Service
 
 ## Opis
-Wulkanizacja Service API to aplikacja webowa stworzona w technologii .NET 8, która umożliwia zarządzanie oponami w serwisie wulkanizacyjnym. API pozwala na dodawanie, aktualizowanie, usuwanie oraz pobieranie informacji o oponach.
+Wulkanizacja Service to serwis webowy stworzony w technologii .NET 8, który umożliwia zarządzanie oponami w serwisie wulkanizacyjnym. API pozwala na dodawanie, aktualizowanie, usuwanie oraz pobieranie informacji o oponach.
 
 ## Funkcje
 - Dodawanie nowej opony
