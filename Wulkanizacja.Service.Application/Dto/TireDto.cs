@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Wulkanizacja.Service.Core.Enums;
 using System.Text.Json.Serialization;
+using System.Threading;
 
 namespace Wulkanizacja.Service.Application.Dto
 {
@@ -17,12 +18,23 @@ namespace Wulkanizacja.Service.Application.Dto
         public string SpeedIndex { get; set; }
         public string LoadIndex { get; set; }
         public TireType TireType { get; set; }
-        public DateTimeOffset? ManufactureDate { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string ManufactureWeekYear { get; set; }
+        public string ManufactureDate { get; set; }
         public DateTimeOffset? CreateDate { get; set; }
         public DateTimeOffset? EditDate { get; set; }
         public string? Comments { get; set; }
         public int QuantityInStock { get; set; }
+
+        public bool Validate()
+        {
+            return 
+                   Brand == null ||
+                   Model == null ||
+                   Size == null ||
+                   SpeedIndex == null ||
+                   LoadIndex == null ||
+                   TireType == null ||
+                   ManufactureDate == null ||
+                   QuantityInStock == null;
+        }
     }
 }

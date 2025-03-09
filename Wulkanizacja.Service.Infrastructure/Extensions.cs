@@ -22,6 +22,7 @@ using Convey.CQRS.Queries;
 using Wulkanizacja.Service.Infrastructure.Filters;
 using Swashbuckle.AspNetCore.Filters;
 using Wulkanizacja.Service.Application.Services;
+using Wulkanizacja.Service.Application.Converters;
 
 namespace Wulkanizacja.Service.Infrastructure
 {
@@ -39,6 +40,7 @@ namespace Wulkanizacja.Service.Infrastructure
                 });
 
             builder.Services
+                .AddScoped<TireTypeToLocalizedStringConverter>()
                 .AddScoped<IDatabaseMigrationService, DatabaseMigrationService>()
                 .AddScoped<ITiresRepository, TiresRepository>()
                 .AddScoped<TireUpdater>()

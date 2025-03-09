@@ -24,7 +24,6 @@ namespace Wulkanizacja.Service.Application.Commands.Handlers
 
         public override async Task HandleCommandAsync(PostTire command, CancellationToken cancellationToken = default)
         {
-            command.Tire.ManufactureDate = _weekYearToDateConverter.ConvertWeekYearToDate(command.Tire.ManufactureWeekYear).ToUniversalTime();
             var tireId = command.Tire.Id == Guid.Empty ? Guid.NewGuid() : command.Tire.Id;
             command.Tire.Id = tireId;
             var tire = new TireAggregate(command.Tire.ToModel());

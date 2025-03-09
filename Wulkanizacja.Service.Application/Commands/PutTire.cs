@@ -16,14 +16,26 @@ namespace Wulkanizacja.Service.Application.Commands
         public string? SpeedIndex { get; set; } = null;
         public string? LoadIndex { get; set; } = null;
         public short? TireType { get; set; } = null;
-        public DateTimeOffset? ManufactureDate { get; set; } = null;
-        public string? ManufactureWeekYear { get; set; } = null;
+        public string? ManufactureDate { get; set; } = null;
         public string? Comments { get; set; } = null;
         public int? QuantityInStock { get; set; } = null;
 
         public void SetTireId(Guid tireId)
         {
             TireId = tireId;
+        }
+        public bool IsEmpty()
+        {
+            return TireId == Guid.Empty &&
+                   Brand == null &&
+                   Model == null &&
+                   Size == null &&
+                   SpeedIndex == null &&
+                   LoadIndex == null &&
+                   TireType == null &&
+                   ManufactureDate == null &&
+                   Comments == null &&
+                   QuantityInStock == null;
         }
     }
 }

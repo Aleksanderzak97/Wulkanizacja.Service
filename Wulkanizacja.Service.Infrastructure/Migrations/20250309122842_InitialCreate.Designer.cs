@@ -12,7 +12,7 @@ using Wulkanizacja.Service.Infrastructure.Postgres.Context;
 namespace Wulkanizacja.Service.Infrastructure.Migrations
 {
     [DbContext(typeof(TiresDbContext))]
-    [Migration("20250224010514_InitialCreate")]
+    [Migration("20250309122842_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -48,8 +48,9 @@ namespace Wulkanizacja.Service.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTimeOffset?>("ManufactureDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<string>("ManufactureDate")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Model")
                         .IsRequired()

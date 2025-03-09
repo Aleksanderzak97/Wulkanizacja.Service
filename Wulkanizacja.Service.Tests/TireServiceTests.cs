@@ -36,7 +36,7 @@ namespace Wulkanizacja.Service.Tests
                 TireTypeId = 1,
                 SpeedIndex = "Y",
                 LoadIndex = "91",
-                ManufactureDate = DateTimeOffset.UtcNow,
+                ManufactureDate = "5225",
                 CreationDate = DateTimeOffset.UtcNow,
                 QuantityInStock = 10
             };
@@ -65,7 +65,7 @@ namespace Wulkanizacja.Service.Tests
                 TireTypeId = 1,
                 SpeedIndex = "H",
                 LoadIndex = "88",
-                ManufactureDate = DateTimeOffset.UtcNow.AddMonths(-3),
+                ManufactureDate = "5225",
                 CreationDate = DateTimeOffset.UtcNow.AddMonths(-3),
                 QuantityInStock = 5
             };
@@ -105,7 +105,7 @@ namespace Wulkanizacja.Service.Tests
                 TireTypeId = 1,
                 SpeedIndex = "V",
                 LoadIndex = "92",
-                ManufactureDate = DateTimeOffset.UtcNow.AddMonths(-1),
+                ManufactureDate = "5225",
                 CreationDate = DateTimeOffset.UtcNow.AddMonths(-1),
                 QuantityInStock = 8
             };
@@ -155,7 +155,7 @@ namespace Wulkanizacja.Service.Tests
                 TireTypeId = 1,
                 SpeedIndex = "Y",
                 LoadIndex = "91",
-                ManufactureDate = DateTimeOffset.UtcNow,
+                ManufactureDate = "5225",
                 CreationDate = DateTimeOffset.UtcNow,
                 QuantityInStock = 10 + i
             }).ToList();

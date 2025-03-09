@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Wulkanizacja.Service.Application.Converters;
 using Wulkanizacja.Service.Core.Aggregates;
 using Wulkanizacja.Service.Core.Enums;
 using Wulkanizacja.Service.Core.Repositories;
@@ -15,8 +16,10 @@ using Wulkanizacja.Service.Infrastructure.Postgres.Context;
 
 namespace Wulkanizacja.Service.Infrastructure.Postgres.Repositories
 {
-    public class TiresRepository(TiresDbContext tiresDbContext) : ITiresRepository
+    public class TiresRepository(TiresDbContext tiresDbContext, TireTypeToLocalizedStringConverter tireTypeConverter) : ITiresRepository
     {
+        private readonly TireTypeToLocalizedStringConverter _tireTypeConverter = tireTypeConverter;
+
         public async Task<TireAggregate> CreateTire(TireAggregate tireAggregate, CancellationToken cancellationToken)
         {
             await WaitForFreeTransaction(cancellationToken);
@@ -51,7 +54,7 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Repositories
                 .ToListAsync(cancellationToken);
 
             if (tireRecords == null || !tireRecords.Any())
-                throw new TireNotFoundException($"Nie znaleziono opon o rozmiarze {size} i typie {tiretype}");
+                throw new TireNotFoundException($"Nie znaleziono opon o rozmiarze {size} i typie {_tireTypeConverter.Convert(tiretype)}");
 
             return tireRecords.Select(t => new TireAggregate(t.ToModel(), t.Id, t.CreateDate, t.EditDate));
 
