@@ -18,9 +18,7 @@ namespace Wulkanizacja.Service.Application.Dto
         public string SpeedIndex { get; set; }
         public string LoadIndex { get; set; }
         public TireType TireType { get; set; }
-        public DateTimeOffset? ManufactureDate { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string ManufactureWeekYear { get; set; }
+        public string ManufactureDate { get; set; }
         public DateTimeOffset? CreateDate { get; set; }
         public DateTimeOffset? EditDate { get; set; }
         public string? Comments { get; set; }
@@ -35,7 +33,7 @@ namespace Wulkanizacja.Service.Application.Dto
                    SpeedIndex == null ||
                    LoadIndex == null ||
                    TireType == null ||
-                   ManufactureWeekYear == null ||
+                   ManufactureDate == null ||
                    QuantityInStock == null;
         }
     }
