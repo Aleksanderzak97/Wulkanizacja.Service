@@ -91,7 +91,7 @@ app.UseDispatcherEndpoints(endpoints => endpoints
 
         beforeDispatch: (cmd, httpContext) =>
         {
-            if (cmd is not PostTire postTire || postTire.Tire == null || !postTire.Tire.Validate())
+            if (cmd is not PostTire postTire || postTire.Tire == null || postTire.Tire.Validate())
             {
                 throw new EmptyPostDataException("Brak danych do utworzenia opony.");
             }

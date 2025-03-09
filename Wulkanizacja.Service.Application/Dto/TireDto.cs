@@ -29,13 +29,13 @@ namespace Wulkanizacja.Service.Application.Dto
         public bool Validate()
         {
             return 
-                   Brand == null &&
-                   Model == null &&
-                   Size == null &&
-                   SpeedIndex == null &&
-                   LoadIndex == null &&
-                   TireType == null &&
-                   ManufactureWeekYear == null &&
+                   Brand == null ||
+                   Model == null ||
+                   Size == null ||
+                   SpeedIndex == null ||
+                   LoadIndex == null ||
+                   TireType == null ||
+                   ManufactureWeekYear == null ||
                    QuantityInStock == null;
         }
     }
