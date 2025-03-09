@@ -119,8 +119,6 @@ namespace Wulkanizacja.Service.Core.Aggregates
             this.CreateDate,
             this.EditDate);
         }
-
-
     }
 }
 

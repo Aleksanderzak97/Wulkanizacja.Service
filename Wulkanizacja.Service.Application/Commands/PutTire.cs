@@ -25,5 +25,19 @@ namespace Wulkanizacja.Service.Application.Commands
         {
             TireId = tireId;
         }
+        public bool IsEmpty()
+        {
+            return TireId == Guid.Empty &&
+                   Brand == null &&
+                   Model == null &&
+                   Size == null &&
+                   SpeedIndex == null &&
+                   LoadIndex == null &&
+                   TireType == null &&
+                   ManufactureDate == null &&
+                   ManufactureWeekYear == null &&
+                   Comments == null &&
+                   QuantityInStock == null;
+        }
     }
 }
