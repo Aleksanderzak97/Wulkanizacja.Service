@@ -29,8 +29,6 @@ namespace Wulkanizacja.Service.Application.Services
 
         public async Task<TireAggregate?> UpdateTireAsync(PutTire command, CancellationToken cancellationToken)
         {
-            if(command.ManufactureWeekYear != null)
-            command.ManufactureDate = _weekYearToDateConverter.ConvertWeekYearToDate(command.ManufactureWeekYear).ToUniversalTime();
             var tire = await _repository.GetByIdAsync(command.TireId, cancellationToken);
             if (tire == null)
             {
@@ -75,7 +73,7 @@ namespace Wulkanizacja.Service.Application.Services
             if (!string.IsNullOrEmpty(command.SpeedIndex)) tire.SpeedIndex = command.SpeedIndex;
             if (!string.IsNullOrEmpty(command.LoadIndex)) tire.LoadIndex = command.LoadIndex;
             if (command.TireType.HasValue) tire.Type = (TireType)command.TireType.Value;
-            if (command.ManufactureDate.HasValue) tire.ManufactureDate = command.ManufactureDate.Value;
+            if (!string.IsNullOrEmpty(command.ManufactureDate)) tire.ManufactureDate = command.ManufactureDate;
             if (!string.IsNullOrEmpty(command.Comments)) tire.Comments = command.Comments;
             if (command.QuantityInStock.HasValue) tire.QuantityInStock = command.QuantityInStock.Value;
         }

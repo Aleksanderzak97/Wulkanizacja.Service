@@ -17,7 +17,7 @@ namespace Wulkanizacja.Service.Infrastructure.Filters
                 SpeedIndex = "Y",
                 LoadIndex = "91",
                 TireType = TireType.Summer,
-                ManufactureDate = DateTimeOffset.Parse("2025-01-01T00:00:00Z"),
+                ManufactureDate = "5224",
                 CreateDate = DateTimeOffset.Parse("2025-01-01T00:00:00Z"),
                 EditDate = DateTimeOffset.Parse("2025-01-01T00:00:00Z"),
                 Comments = "Przykładowe komentarze",

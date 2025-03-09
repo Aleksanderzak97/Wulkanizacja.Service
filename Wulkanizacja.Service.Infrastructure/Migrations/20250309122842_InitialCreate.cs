@@ -38,7 +38,7 @@ namespace Wulkanizacja.Service.Infrastructure.Migrations
                     TireTypeId = table.Column<short>(type: "smallint", nullable: false),
                     SpeedIndex = table.Column<string>(type: "text", nullable: false),
                     LoadIndex = table.Column<string>(type: "text", nullable: false),
-                    ManufactureDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    ManufactureDate = table.Column<string>(type: "text", nullable: false),
                     CreationDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     EditDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     Comments = table.Column<string>(type: "text", nullable: true),

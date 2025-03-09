@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Globalization;
+using System.Net;
 using Convey;
 using Convey.CQRS.Commands;
 using Convey.CQRS.Queries;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Filters;
+using Wulkanizacja.Service.Api.Exceptions;
 using Wulkanizacja.Service.Application;
 using Wulkanizacja.Service.Application.Commands;
 using Wulkanizacja.Service.Application.Converters;
@@ -18,6 +20,7 @@ using Wulkanizacja.Service.Application.Dto;
 using Wulkanizacja.Service.Application.Queries;
 using Wulkanizacja.Service.Core.Enums;
 using Wulkanizacja.Service.Infrastructure;
+using Wulkanizacja.Service.Infrastructure.Exceptions;
 using Wulkanizacja.Service.Infrastructure.Filters;
 using Wulkanizacja.Service.Infrastructure.Postgres.Options;
 using Wulkanizacja.Service.Infrastructure.Postgres.Services;
@@ -63,6 +66,10 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddSwaggerExamplesFromAssemblyOf<TireDtoExamples>();
 
+var systemLanguage = CultureInfo.InstalledUICulture.Name;
+var culture = new CultureInfo(systemLanguage);
+Thread.CurrentThread.CurrentCulture = culture;
+Thread.CurrentThread.CurrentUICulture = culture;
 
 var app = builder.Build();
 
@@ -73,6 +80,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Middleware i konfiguracja aplikacji
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseSwaggerDocs();
 app.UseApplication();
@@ -83,6 +91,10 @@ app.UseDispatcherEndpoints(endpoints => endpoints
 
         beforeDispatch: (cmd, httpContext) =>
         {
+            if (cmd is not PostTire postTire || postTire.Tire == null || postTire.Tire.Validate())
+            {
+                throw new EmptyPostDataException("Brak danych do utworzenia opony.");
+            }
             return Task.CompletedTask;
         },
         afterDispatch: async (_, httpContext) =>
@@ -101,16 +113,12 @@ app.UseDispatcherEndpoints(endpoints => endpoints
 
             if (string.IsNullOrEmpty(size))
             {
-                httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                await httpContext.Response.WriteAsJsonAsync(new { error = "Brak wymaganego parametru `Size`." });
-                return;
+                throw new EmptyTireSizeException($"Brak wymaganego parametru 'Size'.");
             }
 
-            if (string.IsNullOrEmpty(tireTypeString) || !Enum.TryParse<TireType>(tireTypeString, out var tireType))
+            if (string.IsNullOrEmpty(tireTypeString) || !Enum.TryParse<TireType>(tireTypeString, out var tireType) || !Enum.IsDefined(typeof(TireType), tireType))
             {
-                httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                await httpContext.Response.WriteAsJsonAsync(new { error = "Niepoprawna wartość `TireType`." });
-                return;
+                throw new InvalidTireTypeException($"Niepoprawna wartość `TireType`: {tireTypeString}");
             }
 
             var query = new GetTiresBySizeAndType
@@ -135,22 +143,13 @@ app.UseDispatcherEndpoints(endpoints => endpoints
             var tireIdString = httpContext.Request.RouteValues["TireId"]?.ToString();
             if (string.IsNullOrEmpty(tireIdString) || !Guid.TryParse(tireIdString, out var tireId))
             {
-                httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                await httpContext.Response.WriteAsJsonAsync(new { error = "Niepoprawny identyfikator opony." });
-                return;
+                throw new BadIdentifierException("Niepoprawny identyfikator opony.");
             }
 
             var query = new GetTireById { TireId = tireId };
 
             var dispatcher = httpContext.RequestServices.GetRequiredService<IQueryDispatcher>();
             var result = await dispatcher.QueryAsync(query);
-
-            if (result == null)
-            {
-                httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
-                await httpContext.Response.WriteAsJsonAsync(new { error = "Opona nie została znaleziona." });
-                return;
-            }
 
             await httpContext.Response.WriteAsJsonAsync(result);
         },
@@ -166,17 +165,13 @@ app.UseDispatcherEndpoints(endpoints => endpoints
             var tireIdString = httpContext.Request.RouteValues["TireId"]?.ToString();
             if (string.IsNullOrEmpty(tireIdString) || !Guid.TryParse(tireIdString, out var tireId))
             {
-                httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                await httpContext.Response.WriteAsJsonAsync(new { error = "Niepoprawny identyfikator opony." });
-                return;
+                throw new BadIdentifierException("Niepoprawny identyfikator opony.");
             }
 
             var updateTireDto = await httpContext.Request.ReadFromJsonAsync<PutTire>();
-            if (updateTireDto == null)
+            if (updateTireDto == null || updateTireDto.IsEmpty())
             {
-                httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                await httpContext.Response.WriteAsJsonAsync(new { error = "Brak danych do aktualizacji." });
-                return;
+                throw new EmptyUpdateDataException("Brak danych do aktualizacji.");
             }
 
             updateTireDto.SetTireId(tireId);
@@ -195,9 +190,7 @@ app.UseDispatcherEndpoints(endpoints => endpoints
             var tireIdString = httpContext.Request.RouteValues["TireId"]?.ToString();
             if (string.IsNullOrEmpty(tireIdString) || !Guid.TryParse(tireIdString, out var tireId))
             {
-                httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                await httpContext.Response.WriteAsJsonAsync(new { error = "Niepoprawny identyfikator opony." });
-                return;
+                throw new BadIdentifierException("Niepoprawny identyfikator opony.");
             }
 
             var command = new DeleteTire(tireId);

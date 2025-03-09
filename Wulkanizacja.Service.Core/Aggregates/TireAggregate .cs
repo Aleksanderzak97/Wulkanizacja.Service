@@ -17,7 +17,7 @@ namespace Wulkanizacja.Service.Core.Aggregates
         public string SpeedIndex { get; set; }
         public string LoadIndex { get; set; }
         public TireType Type { get; set; }
-        public DateTimeOffset? ManufactureDate { get; set; }
+        public string ManufactureDate { get; set; }
         public DateTimeOffset? CreateDate { get; set; }
         public DateTimeOffset? EditDate { get; set; }
         public string? Comments { get; set; }
@@ -62,7 +62,7 @@ namespace Wulkanizacja.Service.Core.Aggregates
         }
 
         public TireAggregate(Guid tireId, string? brand, string? model, string? size, string? speedIndex, string? loadIndex, short? tireType,
-                     DateTimeOffset? manufactureDate, string? comments, int quantityInStock)
+                     string? manufactureDate, string? comments, int quantityInStock)
         {
             Id = new AggregateId(tireId);
             Brand = brand;
@@ -119,8 +119,6 @@ namespace Wulkanizacja.Service.Core.Aggregates
             this.CreateDate,
             this.EditDate);
         }
-
-
     }
 }
 

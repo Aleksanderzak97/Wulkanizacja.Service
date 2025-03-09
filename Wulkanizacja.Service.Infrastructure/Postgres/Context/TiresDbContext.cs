@@ -27,7 +27,7 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Context
                 entity.Property(e => e.TireTypeId).IsRequired();
                 entity.Property(e => e.SpeedIndex).IsRequired();
                 entity.Property(e => e.LoadIndex).IsRequired();
-                entity.Property(e => e.ManufactureDate).HasColumnType("timestamp with time zone");
+                entity.Property(e => e.ManufactureDate).IsRequired();
                 entity.Property(e => e.CreationDate).HasColumnType("timestamp with time zone");
                 entity.Property(e => e.EditDate).HasColumnType("timestamp with time zone");
                 entity.Property(e => e.QuantityInStock).IsRequired();

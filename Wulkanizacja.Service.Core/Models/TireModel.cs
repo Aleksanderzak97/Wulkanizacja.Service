@@ -17,7 +17,7 @@ namespace Wulkanizacja.Service.Core.Models
         public string Size { get; set; }
         public string SpeedIndex { get; set; }
         public string LoadIndex { get; set; }
-        public DateTimeOffset? ManufactureDate { get; set; }
+        public string ManufactureDate { get; set; }
         public DateTimeOffset? CreateDate { get; set; }
         public DateTimeOffset? EditDate { get; set; }
         public string? Comments { get; set; }

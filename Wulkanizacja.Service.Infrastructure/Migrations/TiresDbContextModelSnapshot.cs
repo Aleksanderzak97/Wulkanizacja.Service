@@ -45,8 +45,9 @@ namespace Wulkanizacja.Service.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTimeOffset?>("ManufactureDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<string>("ManufactureDate")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Model")
                         .IsRequired()

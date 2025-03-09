@@ -31,8 +31,8 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Entities
         [Required]
         public string LoadIndex { get; set; } // Indeks nośności (np. 91)
 
-        [Column(TypeName = "timestamp with time zone")]
-        public DateTimeOffset? ManufactureDate { get; set; } // Data produkcji
+        [Required]
+        public string ManufactureDate { get; set; } // Data produkcji
 
         [Column(TypeName = "timestamp with time zone")]
         public DateTimeOffset? CreationDate { get; set; } // Data utworzenia w systemie
