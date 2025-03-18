@@ -32,7 +32,7 @@ W przypadku dockera konfiguracja w docker-compose.yml
 5. Uruchom aplikację za pomocą Visual Studio 2022.
 6. Migracje zostaną zastosowane automatycznie podczas uruchamiania aplikacji.
 7. Do testów za pomocą API swaggera trzeba się zautoryzowac klikając authorize i wpisując token który załączam w pliku Jwt token.json czyli Bearer 'token'
-7. Teraz można testować endpointy z załączonej kolekcji postmana lub przez API swaggera pod adresem [http://localhost:5884/swagger](http://localhost:5884/swagger).
+8. Teraz można testować endpointy z załączonej kolekcji postmana lub przez API swaggera pod adresem [http://localhost:5884/swagger](http://localhost:5884/swagger). Dla użytkowników preferujących interfejs graficzny, dostępna jest także aplikacja desktopowa, która umożliwia wygodne korzystanie z funkcjonalności API.
 
 ## Uruchomienie Alternatywne Docker
 1. Zainstaluj program Docker Desktop
@@ -41,7 +41,7 @@ W przypadku dockera konfiguracja w docker-compose.yml
 4. Wróć do poprzedniego folderu czyli Wulkanizacja.Service uruchom cmd z tego poziomu
 5. Wpisz docker-compose build a następnie docker-compose up -d
 6. Do testów za pomocą API swaggera trzeba się zautoryzowac klikając authorize i wpisując token który załączam w pliku Jwt token.json czyli Bearer 'token'
-7. Teraz można testować endpointy z załączonej kolekcji postmana lub przez API swaggera pod adresem [http://localhost:5884/swagger](http://localhost:5884/swagger).
+7. Teraz można testować endpointy z załączonej kolekcji postmana lub przez API swaggera pod adresem [http://localhost:5884/swagger](http://localhost:5884/swagger).  Dla użytkowników preferujących interfejs graficzny, dostępna jest także aplikacja desktopowa, która umożliwia wygodne korzystanie z funkcjonalności API.
 
 
 ## Endpointy
