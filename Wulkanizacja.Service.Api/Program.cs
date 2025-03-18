@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Net;
+using System.Text;
 using Convey;
 using Convey.CQRS.Commands;
 using Convey.CQRS.Queries;
@@ -7,10 +8,12 @@ using Convey.Docs.Swagger;
 using Convey.Logging;
 using Convey.WebApi;
 using Convey.WebApi.CQRS;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Filters;
 using Wulkanizacja.Service.Api.Exceptions;
 using Wulkanizacja.Service.Application;
@@ -25,9 +28,36 @@ using Wulkanizacja.Service.Infrastructure.Filters;
 using Wulkanizacja.Service.Infrastructure.Postgres.Options;
 using Wulkanizacja.Service.Infrastructure.Postgres.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]))
+    };
+});
+
+// W pipeline dodaj middleware:
+
+
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
+    .AddEnvironmentVariables();
 builder.Services.Configure<PostgresOptions>(builder.Configuration.GetSection("postgres"));
 builder.Services.AddSingleton<WeekYearToDateConverter>();
 builder.Services.AddControllers();
@@ -52,6 +82,33 @@ builder.Services.AddSwaggerGen(c =>
         Version = "v1",
         Title = "Wulkanizacja Service API",
         Description = "API for Wulkanizacja Service"
+    });
+
+    c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    {
+        Description = "Wprowadź token Bearer. Przykład: \"Bearer {token}\"",
+        Name = "Authorization",
+        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+    {
+        {
+            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                {
+                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = Microsoft.OpenApi.Models.ParameterLocation.Header
+            },
+            new List<string>()
+        }
     });
     c.DocumentFilter<TireExampleDocumentFilter>();
     c.DocumentFilter<UpdateTireExampleDocumentFilter>();
@@ -81,14 +138,15 @@ using (var scope = app.Services.CreateScope())
 
 // Middleware i konfiguracja aplikacji
 app.UseMiddleware<ExceptionMiddleware>();
-
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseSwaggerDocs();
 app.UseApplication();
 app.UseDispatcherEndpoints(endpoints => endpoints
     .Post<PostTire>("tires",
         endpoint: endpoint => endpoint
-        .WithDescription("Dodaje nową oponę"),
-
+        .WithDescription("Dodaje nową oponę")
+        .RequireAuthorization(),
         beforeDispatch: (cmd, httpContext) =>
         {
             if (cmd is not PostTire postTire || postTire.Tire == null || postTire.Tire.Validate())
@@ -135,6 +193,7 @@ app.UseDispatcherEndpoints(endpoints => endpoints
         endpoint: endpoint => endpoint
             .WithDescription("Pobiera opony na podstawie rozmiaru i typu")
             .WithSummary("Pobiera listę opon o podanym rozmiarze i typie")
+            .RequireAuthorization()
     )
 
     .Get("tires/{TireId}",
@@ -156,7 +215,8 @@ app.UseDispatcherEndpoints(endpoints => endpoints
         endpoint: endpoint => endpoint
             .WithDescription("Pobiera oponę na podstawie TireId")
             .WithSummary("Pobiera dane konkretnej opony")
- 
+            .RequireAuthorization()
+
     )
 
     .Put("tires/updateTire/{TireId}",
@@ -181,7 +241,10 @@ app.UseDispatcherEndpoints(endpoints => endpoints
 
             httpContext.Response.StatusCode = StatusCodes.Status204NoContent;
         },
-        endpoint: endpoint => endpoint.WithDescription("Aktualizuje oponę na podstawie TireId"))
+        endpoint: endpoint => endpoint
+        .WithDescription("Aktualizuje oponę na podstawie TireId")
+        .RequireAuthorization()
+        )
 
 
     .Delete("tires/{TireId}/removeTire",
@@ -199,7 +262,10 @@ app.UseDispatcherEndpoints(endpoints => endpoints
             await dispatcher.SendAsync(command);
             httpContext.Response.StatusCode = StatusCodes.Status202Accepted;
         },
-        endpoint: endpoint => endpoint.WithDescription("Usuwa oponę na podstawie TireId"))
+        endpoint: endpoint => endpoint
+        .WithDescription("Usuwa oponę na podstawie TireId")
+        .RequireAuthorization()
+        )
 );
 
 app.Run();

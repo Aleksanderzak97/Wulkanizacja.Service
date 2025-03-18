@@ -21,6 +21,12 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGFrIiwiZXhwIjo0ODk1NTk1NDU2LCJpc3MiOiJXdWxrYW5pemFjamFBdXRoIn0.7_C1lj5mzBXnzG9DpNPFBlfpwRtN2eEMkxQrLbDhfy8"
+					}
+				},
 				"method": "GET",
 				"header": [],
 				"url": "http://localhost:5884/tires/size/205%2F55 R16/TireType/1"
@@ -42,6 +48,12 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGFrIiwiZXhwIjo0ODk1NTk1NDU2LCJpc3MiOiJXdWxrYW5pemFjamFBdXRoIn0.7_C1lj5mzBXnzG9DpNPFBlfpwRtN2eEMkxQrLbDhfy8"
+					}
+				},
 				"method": "GET",
 				"header": [],
 				"url": "http://localhost:5884/tires/72c25aea-7fa6-468e-af3d-b2b797145017"
@@ -63,6 +75,12 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGFrIiwiZXhwIjo0ODk1NTk1NDU2LCJpc3MiOiJXdWxrYW5pemFjamFBdXRoIn0.7_C1lj5mzBXnzG9DpNPFBlfpwRtN2eEMkxQrLbDhfy8"
+					}
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": "http://localhost:5884/tires/a3858536-1687-4452-9e77-7a00599f5cb3/removeTire"
@@ -84,6 +102,12 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGFrIiwiZXhwIjo0ODk1NTk1NDU2LCJpc3MiOiJXdWxrYW5pemFjamFBdXRoIn0.7_C1lj5mzBXnzG9DpNPFBlfpwRtN2eEMkxQrLbDhfy8"
+					}
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
@@ -114,6 +138,12 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGFrIiwiZXhwIjo0ODk1NTk1NDU2LCJpc3MiOiJXdWxrYW5pemFjamFBdXRoIn0.7_C1lj5mzBXnzG9DpNPFBlfpwRtN2eEMkxQrLbDhfy8"
+					}
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
