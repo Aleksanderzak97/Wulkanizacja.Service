@@ -54,7 +54,10 @@ builder.Services.AddAuthentication(options =>
 // W pipeline dodaj middleware:
 
 
-builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
+    .AddEnvironmentVariables();
 builder.Services.Configure<PostgresOptions>(builder.Configuration.GetSection("postgres"));
 builder.Services.AddSingleton<WeekYearToDateConverter>();
 builder.Services.AddControllers();
