@@ -14,13 +14,13 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Entities
         public Guid TireId { get; init; } // Unikalne ID opony
 
         [Required]
-        public string Brand { get; init; } // Marka opony (np. Michelin, Pirelli)
+        public string Brand { get; set; } // Marka opony (np. Michelin, Pirelli)
 
         [Required]
-        public string Model { get; init; } // Model opony
+        public string Model { get; set; } // Model opony
 
         [Required]
-        public string Size { get; init; } // Rozmiar (np. 205/55 R16)
+        public string Size { get; set; } // Rozmiar (np. 205/55 R16)
 
         [Required]
         public short TireTypeId { get; set; } // 1 = Letnia, 2 = Zimowa, 3 = Całoroczna
@@ -40,7 +40,7 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Entities
         [Column(TypeName = "timestamp with time zone")]
         public DateTimeOffset? EditDate { get; set; } // Data ostatniej edycji
 
-        public string? Comments { get; init; } // Opcjonalne uwagi o oponie
+        public string? Comments { get; set; } // Opcjonalne uwagi o oponie
 
         [Required]
         public int QuantityInStock { get; set; } // Ilość sztuk na stanie

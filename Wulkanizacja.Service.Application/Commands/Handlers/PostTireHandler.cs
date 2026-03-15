@@ -11,15 +11,11 @@ using Wulkanizacja.Service.Core.Aggregates;
 using Convey.CQRS.Events;
 using Wulkanizacja.Service.Core.Repositories;
 using Wulkanizacja.Service.Application.Mapping;
-using Wulkanizacja.Service.Application.Converters;
 
 namespace Wulkanizacja.Service.Application.Commands.Handlers
 {
-    internal class PostTireHandler(ILogger<PostTireHandler> logger, IMessagePublisher publisher, WeekYearToDateConverter weekYearToDateConverter) : CommandHandlerBase<PostTire>(logger)
+    internal class PostTireHandler(ILogger<PostTireHandler> logger, IMessagePublisher publisher) : CommandHandlerBase<PostTire>(logger)
     {
-        private readonly WeekYearToDateConverter _weekYearToDateConverter = weekYearToDateConverter;
-
-
         [AutoRetryOnException(2, 1000, typeof(DBConcurrencyException))]
 
         public override async Task HandleCommandAsync(PostTire command, CancellationToken cancellationToken = default)

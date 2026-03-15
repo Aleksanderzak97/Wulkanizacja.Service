@@ -83,14 +83,23 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Repositories
 
             try
             {
-                var deviceEntity = await tiresDbContext.Tires.FirstOrDefaultAsync(d =>
+                var tireEntity = await tiresDbContext.Tires.FirstOrDefaultAsync(d =>
                     d.TireId == oldTire.Id, cancellationToken);
 
-                if (deviceEntity is null)
+                if (tireEntity is null)
                     throw new TireNotFoundForUpdateException("Nie znaleziono w bazie opony do zaktualizowania.");
 
-                tiresDbContext.Tires.Remove(deviceEntity);
-                await tiresDbContext.Tires.AddAsync(updatedTire.ToRecord(), cancellationToken);
+                tireEntity.Brand = updatedTire.Brand;
+                tireEntity.Model = updatedTire.Model;
+                tireEntity.Size = updatedTire.Size;
+                tireEntity.SpeedIndex = updatedTire.SpeedIndex;
+                tireEntity.LoadIndex = updatedTire.LoadIndex;
+                tireEntity.TireTypeId = (short)updatedTire.Type;
+                tireEntity.ManufactureDate = updatedTire.ManufactureDate;
+                tireEntity.CreationDate = updatedTire.CreateDate;
+                tireEntity.EditDate = updatedTire.EditDate;
+                tireEntity.Comments = updatedTire.Comments;
+                tireEntity.QuantityInStock = updatedTire.QuantityInStock;
 
                 await SaveContextChangesAsync(cancellationToken);
                 await transaction.CommitAsync(cancellationToken);
@@ -150,6 +159,7 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Repositories
             catch (DbUpdateConcurrencyException ex)
             {
                 Debug.WriteLine(ex.Message);
+                throw;
             }
         }
 

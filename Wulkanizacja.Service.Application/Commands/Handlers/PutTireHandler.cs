@@ -26,7 +26,8 @@ namespace Wulkanizacja.Service.Application.Commands.Handlers
 
             if (updatedTire == null) 
             {
-                throw new OperationCanceledException("Brak zmian - opona nie została zaktualizowana.");
+                logger.LogInformation("Brak zmian - opona o ID {TireId} nie została zaktualizowana.", command.TireId);
+                return;
             }
 
             if (updatedTire.DomainEvents.Any())

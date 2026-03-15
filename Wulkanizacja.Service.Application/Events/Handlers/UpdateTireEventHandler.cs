@@ -12,7 +12,7 @@ namespace Wulkanizacja.Service.Application.Events.Handlers
     {
         public async Task HandleAsync(UpdateTireEvent @event, CancellationToken cancellationToken = default)
         {
-            await repository.UpdateTire(@event.tire, @event.oldTire, CancellationToken.None);
+            await repository.UpdateTire(@event.tire, @event.oldTire, cancellationToken);
         }
     }
 }

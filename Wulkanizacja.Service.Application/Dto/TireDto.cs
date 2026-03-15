@@ -26,15 +26,15 @@ namespace Wulkanizacja.Service.Application.Dto
 
         public bool Validate()
         {
-            return 
-                   Brand == null ||
-                   Model == null ||
-                   Size == null ||
-                   SpeedIndex == null ||
-                   LoadIndex == null ||
-                   TireType == null ||
-                   ManufactureDate == null ||
-                   QuantityInStock == null;
+            return
+                   string.IsNullOrWhiteSpace(Brand) ||
+                   string.IsNullOrWhiteSpace(Model) ||
+                   string.IsNullOrWhiteSpace(Size) ||
+                   string.IsNullOrWhiteSpace(SpeedIndex) ||
+                   string.IsNullOrWhiteSpace(LoadIndex) ||
+                   !Enum.IsDefined(typeof(TireType), TireType) ||
+                   string.IsNullOrWhiteSpace(ManufactureDate) ||
+                   QuantityInStock < 0;
         }
     }
 }

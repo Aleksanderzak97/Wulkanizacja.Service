@@ -18,7 +18,6 @@ using Swashbuckle.AspNetCore.Filters;
 using Wulkanizacja.Service.Api.Exceptions;
 using Wulkanizacja.Service.Application;
 using Wulkanizacja.Service.Application.Commands;
-using Wulkanizacja.Service.Application.Converters;
 using Wulkanizacja.Service.Application.Dto;
 using Wulkanizacja.Service.Application.Queries;
 using Wulkanizacja.Service.Core.Enums;
@@ -59,7 +58,6 @@ builder.Configuration
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
     .AddEnvironmentVariables();
 builder.Services.Configure<PostgresOptions>(builder.Configuration.GetSection("postgres"));
-builder.Services.AddSingleton<WeekYearToDateConverter>();
 builder.Services.AddControllers();
 
 // Rejestracja usług
@@ -155,9 +153,11 @@ app.UseDispatcherEndpoints(endpoints => endpoints
             }
             return Task.CompletedTask;
         },
-        afterDispatch: async (_, httpContext) =>
+        afterDispatch: async (cmd, httpContext) =>
         {
             httpContext.Response.StatusCode = (int)HttpStatusCode.Created;
+            await httpContext.Response.WriteAsJsonAsync(cmd);
+
         })
 
     .Get("tires/size/{Size}/TireType/{TireType}",

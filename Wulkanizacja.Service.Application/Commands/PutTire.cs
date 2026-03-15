@@ -26,8 +26,7 @@ namespace Wulkanizacja.Service.Application.Commands
         }
         public bool IsEmpty()
         {
-            return TireId == Guid.Empty &&
-                   Brand == null &&
+            return Brand == null &&
                    Model == null &&
                    Size == null &&
                    SpeedIndex == null &&
