@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System;
-using System.IO;
 using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Wulkanizacja.Service.Api.Exceptions;
 using Wulkanizacja.Service.Core.Exceptions;
@@ -47,10 +45,13 @@ public class ExceptionMiddleware
         var errorResponse = new ErrorResponse
         {
             Code = (exception as InfrastructureException)?.Code ?? (exception as ApiExceptions)?.Code ?? "internal_server_error",
-            Reason = exception.Message
+            Reason = $"{exception.Message} (traceId: {context.TraceIdentifier})"
         };
 
-        var result = JsonConvert.SerializeObject(errorResponse);
+        var result = JsonSerializer.Serialize(errorResponse, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
 
         return context.Response.WriteAsync(result);
     }

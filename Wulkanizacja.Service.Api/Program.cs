@@ -53,10 +53,6 @@ builder.Services.AddAuthentication(options =>
 // W pipeline dodaj middleware:
 
 
-builder.Configuration
-    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
-    .AddEnvironmentVariables();
 builder.Services.Configure<PostgresOptions>(builder.Configuration.GetSection("postgres"));
 builder.Services.AddControllers();
 
@@ -156,7 +152,7 @@ app.UseDispatcherEndpoints(endpoints => endpoints
         afterDispatch: async (cmd, httpContext) =>
         {
             httpContext.Response.StatusCode = (int)HttpStatusCode.Created;
-            await httpContext.Response.WriteAsJsonAsync(cmd);
+            await httpContext.Response.WriteAsJsonAsync(new { message = "Opona została utworzona." });
 
         })
 
@@ -228,7 +224,7 @@ app.UseDispatcherEndpoints(endpoints => endpoints
                 throw new BadIdentifierException("Niepoprawny identyfikator opony.");
             }
 
-            var updateTireDto = await httpContext.Request.ReadFromJsonAsync<PutTire>();
+            var updateTireDto = await httpContext.Request.ReadFromJsonAsync<PutTire>(httpContext.RequestAborted);
             if (updateTireDto == null || updateTireDto.IsEmpty())
             {
                 throw new EmptyUpdateDataException("Brak danych do aktualizacji.");
