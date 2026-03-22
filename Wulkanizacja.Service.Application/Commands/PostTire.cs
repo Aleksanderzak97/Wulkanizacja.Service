@@ -11,6 +11,6 @@ namespace Wulkanizacja.Service.Application.Commands
 {
     public class PostTire : ICommand
     {
-        public TireDto Tire { get; set; }
+        public TireDto Tire { get; set; } = new();
     }
 }

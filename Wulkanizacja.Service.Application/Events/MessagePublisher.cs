@@ -1,10 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Wulkanizacja.Service.Core.Events;
+﻿using Wulkanizacja.Service.Core.Events;
 
 namespace Wulkanizacja.Service.Application.Events
 {
@@ -19,8 +13,7 @@ namespace Wulkanizacja.Service.Application.Events
         #region Constructors
 
         public MessagePublisher(
-            IDomainEventDispatcher domainEventDispatcher
-            , ILogger<MessagePublisher> logger)
+            IDomainEventDispatcher domainEventDispatcher)
         {
             _domainEventDispatcher = domainEventDispatcher;
         }

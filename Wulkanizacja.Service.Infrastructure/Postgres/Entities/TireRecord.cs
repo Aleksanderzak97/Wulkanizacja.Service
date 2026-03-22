@@ -14,25 +14,25 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Entities
         public Guid TireId { get; init; } // Unikalne ID opony
 
         [Required]
-        public string Brand { get; set; } // Marka opony (np. Michelin, Pirelli)
+        public string Brand { get; set; } = string.Empty; // Marka opony (np. Michelin, Pirelli)
 
         [Required]
-        public string Model { get; set; } // Model opony
+        public string Model { get; set; } = string.Empty; // Model opony
 
         [Required]
-        public string Size { get; set; } // Rozmiar (np. 205/55 R16)
+        public string Size { get; set; } = string.Empty; // Rozmiar (np. 205/55 R16)
 
         [Required]
         public short TireTypeId { get; set; } // 1 = Letnia, 2 = Zimowa, 3 = Całoroczna
 
         [Required]
-        public string SpeedIndex { get; set; } // Indeks prędkości (np. Y)
+        public string SpeedIndex { get; set; } = string.Empty; // Indeks prędkości (np. Y)
 
         [Required]
-        public string LoadIndex { get; set; } // Indeks nośności (np. 91)
+        public string LoadIndex { get; set; } = string.Empty; // Indeks nośności (np. 91)
 
         [Required]
-        public string ManufactureDate { get; set; } // Data produkcji
+        public string ManufactureDate { get; set; } = string.Empty; // Data produkcji
 
         [Column(TypeName = "timestamp with time zone")]
         public DateTimeOffset? CreationDate { get; set; } // Data utworzenia w systemie
@@ -45,7 +45,7 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Entities
         [Required]
         public int QuantityInStock { get; set; } // Ilość sztuk na stanie
 
-        public TireTypeRecord TireType { get; set; } // Relacja do tabeli typów opon
+        public TireTypeRecord TireType { get; set; } = null!; // Relacja do tabeli typów opon
     }
 }
 

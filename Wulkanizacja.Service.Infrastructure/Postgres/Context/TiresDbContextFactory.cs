@@ -9,21 +9,22 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Context
 {
     public class TiresDbContextFactory : IDesignTimeDbContextFactory<TiresDbContext>
     {
-        private readonly PostgresOptions _options;
+        private readonly PostgresOptions _options = new();
 
         public TiresDbContextFactory(IOptions<PostgresOptions> options)
         {
-            _options = options.Value;
+            _options = options.Value ?? new PostgresOptions();
         }
 
         public TiresDbContextFactory()
         {
+            var appSettingsPath = Path.Combine(Directory.GetCurrentDirectory(), "../Wulkanizacja.Service.Api/appsettings.json");
+
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../Wulkanizacja.Service.Api"))
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile(appSettingsPath)
                 .Build();
 
-            _options = configuration.GetSection("postgres").Get<PostgresOptions>();
+            _options = configuration.GetSection("postgres").Get<PostgresOptions>() ?? new PostgresOptions();
         }
 
         public TiresDbContext CreateDbContext(string[] args)

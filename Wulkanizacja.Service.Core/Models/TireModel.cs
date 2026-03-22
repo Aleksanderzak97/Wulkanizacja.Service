@@ -11,13 +11,13 @@ namespace Wulkanizacja.Service.Core.Models
     {
         public TireType TireType { get; set; }
         public Guid Id { get; set; }
-        public string ShortSerialNumber { get; set; }
-        public string Brand { get; set; }
-        public string Model { get; set; }
-        public string Size { get; set; }
-        public string SpeedIndex { get; set; }
-        public string LoadIndex { get; set; }
-        public string ManufactureDate { get; set; }
+        public string ShortSerialNumber { get; set; } = string.Empty;
+        public string Brand { get; set; } = string.Empty;
+        public string Model { get; set; } = string.Empty;
+        public string Size { get; set; } = string.Empty;
+        public string SpeedIndex { get; set; } = string.Empty;
+        public string LoadIndex { get; set; } = string.Empty;
+        public string ManufactureDate { get; set; } = string.Empty;
         public DateTimeOffset? CreateDate { get; set; }
         public DateTimeOffset? EditDate { get; set; }
         public string? Comments { get; set; }

@@ -1,14 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Wulkanizacja.Service.Application.Events;
 using System.Data;
 using Wulkanizacja.Service.Application.Commands.Attributes;
+using Wulkanizacja.Service.Application.Events;
 using Wulkanizacja.Service.Core.Aggregates;
-using Wulkanizacja.Service.Core.Repositories;
 using Wulkanizacja.Service.Application.Mapping;
 
 namespace Wulkanizacja.Service.Application.Commands.Handlers
@@ -25,7 +20,7 @@ namespace Wulkanizacja.Service.Application.Commands.Handlers
             tire.AddTire();
 
             await publisher.PublishDomainEventsAsync(tire.DomainEvents.ToArray());
-            await Task.CompletedTask;
+            tire.ClearDomainEvents();
         }
 
     }

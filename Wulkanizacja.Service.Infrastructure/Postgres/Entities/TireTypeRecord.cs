@@ -11,6 +11,6 @@ namespace Wulkanizacja.Service.Infrastructure.Postgres.Entities
     {
 
         public short TireTypeId { get; set; } // 1 = Letnia, 2 = Zimowa, 3 = Całoroczna
-        public string Name { get; set; } // Nazwa typu (np. "Winter", "Summer", "All-Season")
+        public string Name { get; set; } = string.Empty; // Nazwa typu (np. "Winter", "Summer", "All-Season")
     }
 }

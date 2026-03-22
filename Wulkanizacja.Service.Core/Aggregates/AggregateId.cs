@@ -42,14 +42,14 @@ namespace Wulkanizacja.Service.Core.Aggregates
         /// </summary>
         public static implicit operator AggregateId(Guid id) => new AggregateId(id);
 
-        public bool Equals(AggregateId other)
+        public bool Equals(AggregateId? other)
         {
             if (other is null)
                 return false;
             return ReferenceEquals(this, other) || Value.Equals(other.Value);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return obj is AggregateId other && Equals(other);
         }

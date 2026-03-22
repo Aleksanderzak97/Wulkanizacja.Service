@@ -33,7 +33,7 @@ namespace Wulkanizacja.Service.Application.Commands.Handlers
             if (updatedTire.DomainEvents.Any())
             {
                 await publisher.PublishDomainEventsAsync(updatedTire.DomainEvents.ToArray());
-                await Task.CompletedTask;
+                updatedTire.ClearDomainEvents();
             }
         }
 

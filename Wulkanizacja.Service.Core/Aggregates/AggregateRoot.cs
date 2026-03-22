@@ -16,7 +16,7 @@ namespace Wulkanizacja.Service.Core.Aggregates
         /// </summary>
         public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
-        public AggregateId Id { get; protected set; }
+        public AggregateId Id { get; protected set; } = null!;
         public int Version { get; protected set; }
 
         /// <summary>

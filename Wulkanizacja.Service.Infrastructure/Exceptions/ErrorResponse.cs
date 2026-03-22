@@ -10,9 +10,9 @@ namespace Wulkanizacja.Service.Infrastructure.Exceptions
     public class ErrorResponse
     {
         [JsonProperty("code")]
-        public string Code { get; set; }
+        public string Code { get; set; } = string.Empty;
 
         [JsonProperty("reason")]
-        public string Reason { get; set; }
+        public string Reason { get; set; } = string.Empty;
     }
 }

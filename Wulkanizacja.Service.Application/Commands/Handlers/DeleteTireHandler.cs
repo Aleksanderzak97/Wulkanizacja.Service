@@ -1,17 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using Wulkanizacja.Service.Application.Events;
 using Wulkanizacja.Service.Core.Aggregates;
-using Wulkanizacja.Service.Core.Repositories;
 using Wulkanizacja.Service.Application.CQRS.Commands;
 
 namespace Wulkanizacja.Service.Application.Commands.Handlers
 {
-    internal class DeleteTireHandler(ILogger<DeleteTireHandler> logger, IMessagePublisher publisher)
+    internal class DeleteTireHandler(IMessagePublisher publisher)
            : ICommandHandler<DeleteTire>
     {
         public async Task HandleAsync(DeleteTire command, CancellationToken cancellationToken = default)
@@ -20,7 +14,7 @@ namespace Wulkanizacja.Service.Application.Commands.Handlers
             tire.DeleteTire();
 
             await publisher.PublishDomainEventsAsync(tire.DomainEvents.ToArray());
-            await Task.CompletedTask;
+            tire.ClearDomainEvents();
 
         }
     }

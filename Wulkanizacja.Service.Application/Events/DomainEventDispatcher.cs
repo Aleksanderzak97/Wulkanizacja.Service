@@ -1,9 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Wulkanizacja.Service.Core.Events;
 
 namespace Wulkanizacja.Service.Application.Events
@@ -17,21 +12,13 @@ namespace Wulkanizacja.Service.Application.Events
             _serviceProvider = serviceProvider;
         }
 
-        private async Task InvokeHandleAsync<T>(Type handlerType, IDomainEventHandler handler, IDomainEvent @event, CancellationToken cancellationToken) where T : class, IDomainEvent
-        {
-            if (handlerType.GetMethod(nameof(IDomainEventHandler<T>.HandleAsync)) is { } handleMethod)
-            {
-                await ((Task)handleMethod.Invoke(handler, new object[] { @event, cancellationToken }))!;
-            }
-        }
-
         public async Task PublishAsync<T>(T @event, CancellationToken cancellationToken = default) where T : class, IDomainEvent
         {
-            var commandHandlerType = typeof(IDomainEventHandler<>).MakeGenericType(@event.GetType());
-            var handlers = _serviceProvider.GetServices(commandHandlerType);
+            var handlers = _serviceProvider.GetServices<IDomainEventHandler<T>>();
+
             foreach (var handler in handlers)
             {
-                await InvokeHandleAsync<T>(commandHandlerType, (IDomainEventHandler)handler, @event, cancellationToken);
+                await handler.HandleAsync(@event, cancellationToken);
             }
         }
     }
