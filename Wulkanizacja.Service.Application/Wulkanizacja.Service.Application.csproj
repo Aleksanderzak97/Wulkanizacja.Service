@@ -7,9 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Convey.CQRS.Commands" Version="1.1.448" />
-    <PackageReference Include="Convey.CQRS.Events" Version="1.1.448" />
-    <PackageReference Include="Convey.CQRS.Queries" Version="1.1.448" />
     <PackageReference Include="Microsoft.Extensions.Resilience" Version="9.1.0" />
     <PackageReference Include="Polly" Version="8.5.2" />
   </ItemGroup>

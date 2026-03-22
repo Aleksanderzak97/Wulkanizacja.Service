@@ -8,7 +8,6 @@ using Wulkanizacja.Service.Application.Events;
 using System.Data;
 using Wulkanizacja.Service.Application.Commands.Attributes;
 using Wulkanizacja.Service.Core.Aggregates;
-using Convey.CQRS.Events;
 using Wulkanizacja.Service.Core.Repositories;
 using Wulkanizacja.Service.Application.Mapping;
 

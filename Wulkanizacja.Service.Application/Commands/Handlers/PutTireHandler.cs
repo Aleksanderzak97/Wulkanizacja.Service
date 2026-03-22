@@ -1,5 +1,4 @@
-﻿using Convey.CQRS.Commands;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Data;
 using System.Threading;
@@ -11,6 +10,7 @@ using Wulkanizacja.Service.Application.Services;
 using Wulkanizacja.Service.Core.Aggregates;
 using Wulkanizacja.Service.Core.Enums;
 using Wulkanizacja.Service.Core.Repositories;
+using Wulkanizacja.Service.Application.CQRS.Commands;
 
 namespace Wulkanizacja.Service.Application.Commands.Handlers
 {
@@ -24,7 +24,7 @@ namespace Wulkanizacja.Service.Application.Commands.Handlers
 
             var updatedTire = await tireUpdater.UpdateTireAsync(command, cancellationToken);
 
-            if (updatedTire == null) 
+            if (updatedTire == null)
             {
                 logger.LogInformation("Brak zmian - opona o ID {TireId} nie została zaktualizowana.", command.TireId);
                 return;

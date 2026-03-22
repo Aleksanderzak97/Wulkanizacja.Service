@@ -5,10 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Convey.CQRS.Commands;
 using System.Text;
 using System.Threading.Tasks;
 using Wulkanizacja.Service.Application.Commands.Attributes;
+using Wulkanizacja.Service.Application.CQRS.Commands;
 
 namespace Wulkanizacja.Service.Application.Commands.Handlers
 {

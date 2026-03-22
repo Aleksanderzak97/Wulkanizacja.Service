@@ -1,5 +1,4 @@
-﻿using Convey.CQRS.Commands;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +7,7 @@ using System.Threading.Tasks;
 using Wulkanizacja.Service.Application.Events;
 using Wulkanizacja.Service.Core.Aggregates;
 using Wulkanizacja.Service.Core.Repositories;
+using Wulkanizacja.Service.Application.CQRS.Commands;
 
 namespace Wulkanizacja.Service.Application.Commands.Handlers
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Convey.CQRS.Commands;
+using Wulkanizacja.Service.Application.CQRS.Commands;
 
 namespace Wulkanizacja.Service.Application.Commands
 {
