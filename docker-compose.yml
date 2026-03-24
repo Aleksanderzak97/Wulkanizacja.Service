@@ -7,6 +7,5 @@ services:
     container_name: wulkanizacja.Service
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - postgres__ConnectionString=Database=Wulkanizacja_db;Username=postgres;Enlist=False;Password=admin;Port=5432;Host=host.docker.internal;TimeZone=Europe/Warsaw
     ports:
       - "5884:8080"

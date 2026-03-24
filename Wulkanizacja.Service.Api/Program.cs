@@ -16,9 +16,14 @@ using Wulkanizacja.Service.Core.Enums;
 using Wulkanizacja.Service.Infrastructure;
 using Wulkanizacja.Service.Infrastructure.Exceptions;
 using Wulkanizacja.Service.Infrastructure.Postgres.Services;
+using Wulkanizacja.Service.Api.Vault;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+var vaultState = await VaultBootstrapper.LoadSecretsAsync(builder.Configuration);
+builder.Services.AddSingleton(vaultState);
+builder.Services.AddHostedService<VaultTokenRefreshService>();
 
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var jwtKey = jwtSettings["Key"] ?? throw new InvalidOperationException("Brak konfiguracji Jwt:Key.");
